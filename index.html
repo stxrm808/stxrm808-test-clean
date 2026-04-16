@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>stxrm808 — Premium Drum Kits for Trap &amp; Hip Hop Producers</title>
+  <meta name="description" content="stxrm808 drum kits built for producers who don't sound like the genre. The Flames Bounce Kit series — hard-hitting 808s, crispy snares, fire-coded percussion." />
+  <meta property="og:title" content="stxrm808 — Don't Sound Like Them." />
+  <meta property="og:description" content="Premium drum kits for trap and hip hop producers who refuse to sound generic." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.stxrm808.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="stxrm808 — Don't Sound Like Them." />
+  <meta name="twitter:description" content="Premium drum kits for trap and hip hop producers who refuse to sound generic." />
+  <meta name="twitter:image" content="https://www.stxrm808.com/assets/flames-bounce-vol2-cover.png" />
+  <meta property="og:image" content="https://www.stxrm808.com/assets/flames-bounce-vol2-cover.png" />
+  <meta name="theme-color" content="#080808" />
+  <link rel="canonical" href="https://www.stxrm808.com/" />
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=16" />
+  <link rel="stylesheet" href="css/video-scrub.css?v=7" />
+  <link rel="stylesheet" href="css/kit-vol2.css?v=24" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "stxrm808",
+    "url": "https://www.stxrm808.com",
+    "description": "Premium drum kits for trap and hip hop producers.",
+    "slogan": "Don't Sound Like Them."
+  }
+  </script>
+</head>
+<body id="top">
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="stxrm808 Home">
+        <span class="nav__logo-text">stxrm808<span class="nav__logo-accent">.</span></span>
+      </a>
+      <ul class="nav__links" role="list">
+        <li><a href="#demos" class="nav__link">Beat demos</a></li>
+        <li><a href="#kits" class="nav__link">Kits</a></li>
+      </ul>
+      <a href="#kits" class="btn btn--nav">GET KITS →</a>
+      <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <ul role="list">
+        <li><a href="#demos" class="nav__mobile-link">Beat demos</a></li>
+        <li><a href="#kits" class="nav__mobile-link">Kits</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════
+         VIDEO SCROLL SCRUB — explosion.mp4 (hero background)
+    ═══════════════════════════════════════════ -->
+    <section class="video-scrub" id="videoScrub" aria-hidden="true">
+      <div class="video-scrub__sticky">
+        <video
+          id="scrubVideo"
+          class="video-scrub__video"
+          muted
+          playsinline
+          preload="auto"
+          disablepictureinpicture
+        >
+          <source src="assets/explosion.mp4?v=2" type="video/mp4" />
+        </video>
+        <div class="video-scrub__headline" id="scrubHeadline" aria-hidden="true">
+          <div class="video-scrub__hl-tag">Premium Drum Kits</div>
+          <p class="video-scrub__hl-text">SET THE BEAT<br/><span>ON FIRE.</span></p>
+          <div class="video-scrub__hl-ctas">
+            <a href="#kits" class="btn btn--primary btn--lg">GET THE KITS →</a>
+            <a href="#demos" class="btn btn--ghost">Hear It First</a>
+          </div>
+        </div>
+        <!-- Scroll progress counter bottom-right -->
+        <div class="video-scrub__counter" id="scrubCounter" aria-hidden="true">
+          <span class="video-scrub__counter-num" id="scrubPct">0</span>
+          <span class="video-scrub__counter-pct">%</span>
+        </div>
+        <div class="video-scrub__blend-top"></div>
+        <div class="video-scrub__blend-bottom"></div>
+        <div class="video-scrub__vignette"></div>
+        <div class="video-scrub__progress" id="scrubProgress"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         PRODUCER DEMOS — Flames Bounce Vol. 2 (home only, carousel)
+    ═══════════════════════════════════════════ -->
+    <section class="featured-producer fp-demos-carousel" id="demos">
+      <video class="featured-producer__bg" src="assets/producer-bg.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
+      <div class="container">
+
+        <div class="featured-producer__header">
+          <p class="section-tag reveal-item">Heard In The Wild</p>
+          <h2 class="section-heading reveal-item">Producers don't lie.<br />The beats do the talking.</h2>
+        </div>
+
+        <div class="fp-carousel reveal-item" id="fpDemosCarousel" tabindex="0" data-fp-active-page="0" aria-roledescription="carousel" aria-label="Producer demo beats — use arrows or swipe to flip page">
+          <div class="fp-carousel__chrome">
+            <button type="button" class="fp-carousel__arrow fp-carousel__arrow--prev" id="fpCarouselPrev" aria-label="Previous page of producers" disabled>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+            </button>
+            <div class="fp-carousel__viewport" id="fpCarouselViewport" role="group">
+                <div class="fp-carousel__page" data-page="0" aria-label="Page 1 of 3">
+        <!-- Card 1: ThisisYT -->
+        <div class="fp-card">
+          <div class="fp-card__artist">
+            <div class="fp-card__avatar" id="fpAvatar">
+              <img src="assets/thisisyt-pfp.jpg" alt="thisisyt" class="fp-card__avatar-img"
+                   onerror="this.style.display='none';document.getElementById('fpAvatarFallback').style.display='flex';" />
+              <span class="fp-card__avatar-fallback" id="fpAvatarFallback">YT</span>
+            </div>
+            <div class="fp-card__artist-info">
+              <span class="fp-card__artist-tag">Featured Producer</span>
+              <div class="fp-card__name-row">
+                <h3 class="fp-card__artist-name">ThisisYT</h3>
+                <svg class="fp-card__verified" viewBox="0 0 24 24" aria-label="Verified" role="img">
+                  <circle cx="12" cy="12" r="12" fill="#3897f0"/>
+                  <path d="M10.5 16.5l-4-4 1.41-1.41L10.5 13.67l6.09-6.08 1.41 1.42z" fill="#fff"/>
+                </svg>
+              </div>
+              <a href="https://instagram.com/thisisyt1" target="_blank" rel="noopener" class="fp-card__ig">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                @thisisyt1
+              </a>
+              <ul class="fp-card__credits" aria-label="Selected production credits (ThisisYT)">
+                <li>Kollegah · Bojan · Eno · Ak Ausserkontrolle · uvm.</li>
+              </ul>
+            </div>
+            <div class="fp-card__kit-badge">Flames Bounce Vol. 2</div>
+          </div>
+          <div class="fp-card__player">
+            <div class="fp-card__player-label">made with Flames Bounce Vol. 2</div>
+            <div class="fp-card__controls">
+              <button class="fp-card__play-btn" id="fpPlayBtn" aria-label="Play beat">
+                <svg class="fp-play-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5L13 8 3 13.5V2.5Z"/></svg>
+                <svg class="fp-pause-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" style="display:none"><rect x="3" y="2" width="4" height="12"/><rect x="9" y="2" width="4" height="12"/></svg>
+              </button>
+              <div class="fp-card__waveform" aria-hidden="true">
+                <div id="waveform-thisisyt" class="fp-freq-bars"></div>
+              </div>
+              <span class="fp-card__time" id="fpTime">0:00</span>
+            </div>
+            <div class="fp-card__timeline" id="fpTimeline" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="fp-card__timeline-fill" id="fpTimelineFill"></div>
+              <div class="fp-card__timeline-thumb" id="fpTimelineThumb"></div>
+            </div>
+            <div class="fp-card__time-row">
+              <span id="fpTimeCurrent">0:00</span>
+              <span id="fpTimeDuration">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: stxrm808 -->
+        <div class="fp-card">
+          <div class="fp-card__artist">
+            <div class="fp-card__avatar" id="fp2Avatar">
+              <img src="assets/stxrm808-pfp.jpg" alt="stxrm808" class="fp-card__avatar-img"
+                   onerror="this.style.display='none';document.getElementById('fp2AvatarFallback').style.display='flex';" />
+              <span class="fp-card__avatar-fallback" id="fp2AvatarFallback">STX</span>
+            </div>
+            <div class="fp-card__artist-info">
+              <span class="fp-card__artist-tag">Kit Creator</span>
+              <div class="fp-card__name-row">
+                <h3 class="fp-card__artist-name">stxrm808</h3>
+                <svg class="fp-card__verified" viewBox="0 0 24 24" aria-label="Verified" role="img">
+                  <circle cx="12" cy="12" r="12" fill="#3897f0"/>
+                  <path d="M10.5 16.5l-4-4 1.41-1.41L10.5 13.67l6.09-6.08 1.41 1.42z" fill="#fff"/>
+                </svg>
+              </div>
+              <a href="https://instagram.com/stxrm808" target="_blank" rel="noopener" class="fp-card__ig">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                @stxrm808
+              </a>
+              <ul class="fp-card__credits" aria-label="Selected production credits (stxrm808)">
+                <li>Haftbefehl · Mero · Yakary · Marlo · uvm.</li>
+              </ul>
+            </div>
+            <div class="fp-card__kit-badge">Flames Bounce Vol. 2</div>
+          </div>
+          <div class="fp-card__player">
+            <div class="fp-card__player-label">made with Flames Bounce Vol. 2</div>
+            <div class="fp-card__controls">
+              <button class="fp-card__play-btn" id="fp2PlayBtn" aria-label="Play beat">
+                <svg class="fp-play-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5L13 8 3 13.5V2.5Z"/></svg>
+                <svg class="fp-pause-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" style="display:none"><rect x="3" y="2" width="4" height="12"/><rect x="9" y="2" width="4" height="12"/></svg>
+              </button>
+              <div class="fp-card__waveform" aria-hidden="true">
+                <div id="waveform-stxrm808" class="fp-freq-bars"></div>
+              </div>
+              <span class="fp-card__time" id="fp2Time">0:00</span>
+            </div>
+            <div class="fp-card__timeline" id="fp2Timeline" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="fp-card__timeline-fill" id="fp2TimelineFill"></div>
+              <div class="fp-card__timeline-thumb" id="fp2TimelineThumb"></div>
+            </div>
+            <div class="fp-card__time-row">
+              <span id="fp2TimeCurrent">0:00</span>
+              <span id="fp2TimeDuration">—</span>
+            </div>
+            <div class="fp-card__sample-credit">sample by <a href="https://instagram.com/theycallmehop" target="_blank" rel="noopener">@theycallmehop</a> &amp; <a href="https://instagram.com/proddxdek" target="_blank" rel="noopener">@proddxdek</a></div>
+          </div>
+        </div>
+                </div>
+                <div class="fp-carousel__page" data-page="1" aria-label="Page 2 of 3" aria-hidden="true">
+        <!-- Card 3: Kavo -->
+        <div class="fp-card">
+          <div class="fp-card__artist">
+            <div class="fp-card__avatar" id="fp3Avatar">
+              <img src="assets/kavo-pfp.jpg" alt="Kavo" class="fp-card__avatar-img"
+                   onerror="this.style.display='none';document.getElementById('fp3AvatarFallback').style.display='flex';" />
+              <span class="fp-card__avatar-fallback" id="fp3AvatarFallback">KV</span>
+            </div>
+            <div class="fp-card__artist-info">
+              <span class="fp-card__artist-tag">Featured Producer</span>
+              <div class="fp-card__name-row">
+                <h3 class="fp-card__artist-name">Kavo</h3>
+                <svg class="fp-card__verified" viewBox="0 0 24 24" aria-label="Verified" role="img">
+                  <circle cx="12" cy="12" r="12" fill="#3897f0"/>
+                  <path d="M10.5 16.5l-4-4 1.41-1.41L10.5 13.67l6.09-6.08 1.41 1.42z" fill="#fff"/>
+                </svg>
+              </div>
+              <a href="https://instagram.com/ichbinkavo" target="_blank" rel="noopener" class="fp-card__ig">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                @ichbinkavo
+              </a>
+              <ul class="fp-card__credits" aria-label="Selected production credits (Kavo)">
+                <li>Gzuz · Kolja Goldstein · Capo · Sido · uvm.</li>
+              </ul>
+            </div>
+            <div class="fp-card__kit-badge">Flames Bounce Vol. 2</div>
+          </div>
+          <div class="fp-card__player">
+            <div class="fp-card__player-label">made with Flames Bounce Vol. 2</div>
+            <div class="fp-card__controls">
+              <button class="fp-card__play-btn" id="fp3PlayBtn" aria-label="Play beat">
+                <svg class="fp-play-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5L13 8 3 13.5V2.5Z"/></svg>
+                <svg class="fp-pause-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" style="display:none"><rect x="3" y="2" width="4" height="12"/><rect x="9" y="2" width="4" height="12"/></svg>
+              </button>
+              <div class="fp-card__waveform" aria-hidden="true">
+                <div id="waveform-kavo" class="fp-freq-bars"></div>
+              </div>
+              <span class="fp-card__time" id="fp3Time">0:00</span>
+            </div>
+            <div class="fp-card__timeline" id="fp3Timeline" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="fp-card__timeline-fill" id="fp3TimelineFill"></div>
+              <div class="fp-card__timeline-thumb" id="fp3TimelineThumb"></div>
+            </div>
+            <div class="fp-card__time-row">
+              <span id="fp3TimeCurrent">0:00</span>
+              <span id="fp3TimeDuration">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Moji -->
+        <div class="fp-card">
+          <div class="fp-card__artist">
+            <div class="fp-card__avatar" id="fp4Avatar">
+              <img src="assets/moji-pfp.jpg" alt="Moji" class="fp-card__avatar-img"
+                   onerror="this.style.display='none';document.getElementById('fp4AvatarFallback').style.display='flex';" />
+              <span class="fp-card__avatar-fallback" id="fp4AvatarFallback">MJ</span>
+            </div>
+            <div class="fp-card__artist-info">
+              <span class="fp-card__artist-tag">Featured Producer</span>
+              <div class="fp-card__name-row">
+                <h3 class="fp-card__artist-name">Moji</h3>
+                <svg class="fp-card__verified" viewBox="0 0 24 24" aria-label="Verified" role="img">
+                  <circle cx="12" cy="12" r="12" fill="#3897f0"/>
+                  <path d="M10.5 16.5l-4-4 1.41-1.41L10.5 13.67l6.09-6.08 1.41 1.42z" fill="#fff"/>
+                </svg>
+              </div>
+              <a href="https://instagram.com/yungmoji" target="_blank" rel="noopener" class="fp-card__ig">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                @yungmoji
+              </a>
+              <ul class="fp-card__credits" aria-label="Selected production credits (Moji)">
+                <li>Shindy · Reezy · Jazeek · Faroon · uvm.</li>
+              </ul>
+            </div>
+            <div class="fp-card__kit-badge">Flames Bounce Vol. 2</div>
+          </div>
+          <div class="fp-card__player">
+            <div class="fp-card__player-label">made with Flames Bounce Vol. 2</div>
+            <div class="fp-card__controls">
+              <button class="fp-card__play-btn" id="fp4PlayBtn" aria-label="Play beat">
+                <svg class="fp-play-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5L13 8 3 13.5V2.5Z"/></svg>
+                <svg class="fp-pause-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" style="display:none"><rect x="3" y="2" width="4" height="12"/><rect x="9" y="2" width="4" height="12"/></svg>
+              </button>
+              <div class="fp-card__waveform" aria-hidden="true">
+                <div id="waveform-moji" class="fp-freq-bars"></div>
+              </div>
+              <span class="fp-card__time" id="fp4Time">0:00</span>
+            </div>
+            <div class="fp-card__timeline" id="fp4Timeline" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="fp-card__timeline-fill" id="fp4TimelineFill"></div>
+              <div class="fp-card__timeline-thumb" id="fp4TimelineThumb"></div>
+            </div>
+            <div class="fp-card__time-row">
+              <span id="fp4TimeCurrent">0:00</span>
+              <span id="fp4TimeDuration">—</span>
+            </div>
+          </div>
+        </div>
+                </div>
+                <div class="fp-carousel__page" data-page="2" aria-label="Page 3 of 3" aria-hidden="true">
+        <!-- Card 5: Offbeat — Atlantik demo -->
+        <div class="fp-card">
+          <div class="fp-card__artist">
+            <div class="fp-card__avatar" id="fp5Avatar">
+              <img src="assets/offbeat-pfp.jpg" alt="Offbeat" class="fp-card__avatar-img"
+                   onerror="this.style.display='none';document.getElementById('fp5AvatarFallback').style.display='flex';" />
+              <span class="fp-card__avatar-fallback" id="fp5AvatarFallback">OB</span>
+            </div>
+            <div class="fp-card__artist-info">
+              <span class="fp-card__artist-tag">Featured Producer</span>
+              <div class="fp-card__name-row">
+                <h3 class="fp-card__artist-name">Offbeat</h3>
+                <svg class="fp-card__verified" viewBox="0 0 24 24" aria-label="Verified" role="img">
+                  <circle cx="12" cy="12" r="12" fill="#3897f0"/>
+                  <path d="M10.5 16.5l-4-4 1.41-1.41L10.5 13.67l6.09-6.08 1.41 1.42z" fill="#fff"/>
+                </svg>
+              </div>
+              <a href="https://instagram.com/prodby_offbeat" target="_blank" rel="noopener" class="fp-card__ig">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                @prodby_offbeat
+              </a>
+              <ul class="fp-card__credits" aria-label="Selected production credits (Offbeat)">
+                <li>Veysel · Nizi19 · Sadiq · Haaland · uvm.</li>
+              </ul>
+            </div>
+            <div class="fp-card__kit-badge">Flames Bounce Vol. 2</div>
+          </div>
+          <div class="fp-card__player">
+            <div class="fp-card__player-label">made with Flames Bounce Vol. 2</div>
+            <div class="fp-card__controls">
+              <button class="fp-card__play-btn" id="fp5PlayBtn" aria-label="Play beat">
+                <svg class="fp-play-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5L13 8 3 13.5V2.5Z"/></svg>
+                <svg class="fp-pause-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" style="display:none"><rect x="3" y="2" width="4" height="12"/><rect x="9" y="2" width="4" height="12"/></svg>
+              </button>
+              <div class="fp-card__waveform" aria-hidden="true">
+                <div id="waveform-offbeat" class="fp-freq-bars"></div>
+              </div>
+              <span class="fp-card__time" id="fp5Time">0:00</span>
+            </div>
+            <div class="fp-card__timeline" id="fp5Timeline" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="fp-card__timeline-fill" id="fp5TimelineFill"></div>
+              <div class="fp-card__timeline-thumb" id="fp5TimelineThumb"></div>
+            </div>
+            <div class="fp-card__time-row">
+              <span id="fp5TimeCurrent">0:00</span>
+              <span id="fp5TimeDuration">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6: next producer (placeholder) -->
+        <div class="fp-card fp-card--demos-placeholder">
+          <div class="fp-card__artist">
+            <div class="fp-card__avatar" id="fpNextAvatar" aria-hidden="true">
+              <span class="fp-card__avatar-fallback fp-card__avatar-fallback--solo">soon</span>
+            </div>
+            <div class="fp-card__artist-info">
+              <span class="fp-card__artist-tag">Coming soon</span>
+              <div class="fp-card__name-row">
+                <h3 class="fp-card__artist-name">Next producer</h3>
+              </div>
+              <span class="fp-card__ig fp-card__ig--tba">Instagram TBA</span>
+            </div>
+            <div class="fp-card__kit-badge">Flames Bounce Vol. 2</div>
+          </div>
+          <div class="fp-card__player">
+            <div class="fp-card__player-label">Demo coming soon</div>
+            <div class="fp-card__controls">
+              <button type="button" class="fp-card__play-btn" disabled aria-disabled="true" aria-label="Demo not available yet">
+                <svg class="fp-play-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5L13 8 3 13.5V2.5Z"/></svg>
+                <svg class="fp-pause-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" style="display:none"><rect x="3" y="2" width="4" height="12"/><rect x="9" y="2" width="4" height="12"/></svg>
+              </button>
+              <div class="fp-card__waveform" aria-hidden="true">
+                <div class="fp-freq-bars"></div>
+              </div>
+              <span class="fp-card__time">—</span>
+            </div>
+            <div class="fp-card__timeline" aria-hidden="true">
+              <div class="fp-card__timeline-fill" style="width:0%"></div>
+              <div class="fp-card__timeline-thumb" style="left:0%"></div>
+            </div>
+            <div class="fp-card__time-row">
+              <span>—</span>
+              <span>—</span>
+            </div>
+          </div>
+        </div>
+                </div>
+            </div>
+            <button type="button" class="fp-carousel__arrow fp-carousel__arrow--next" id="fpCarouselNext" aria-label="Next page of producers">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+          <div class="fp-carousel__dots" role="tablist" aria-label="Demo pages">
+            <button type="button" class="fp-carousel__dot is-active" role="tab" aria-selected="true" aria-controls="fpCarouselViewport" id="fpCarouselDot0" data-fp-page="0" tabindex="0">
+              <span class="sr-only">Page 1</span>
+            </button>
+            <button type="button" class="fp-carousel__dot" role="tab" aria-selected="false" aria-controls="fpCarouselViewport" id="fpCarouselDot1" data-fp-page="1" tabindex="-1">
+              <span class="sr-only">Page 2</span>
+            </button>
+            <button type="button" class="fp-carousel__dot" role="tab" aria-selected="false" aria-controls="fpCarouselViewport" id="fpCarouselDot2" data-fp-page="2" tabindex="-1">
+              <span class="sr-only">Page 3</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+      <audio id="fpAudio" src="assets/thisisyt.mp3" preload="metadata"></audio>
+      <audio id="fp2Audio" src="assets/stxrm808.mp3" preload="metadata"></audio>
+      <audio id="fp3Audio" src="assets/demos/kavo-demo-beat.mp3" preload="metadata"></audio>
+      <audio id="fp4Audio" src="assets/demos/moji-preview-beat.mp3" preload="metadata"></audio>
+      <audio id="fp5Audio" src="assets/demos/offbeat-atlantik-demo.mp3" preload="metadata"></audio>
+
+      <p class="featured-producer__slogan" aria-hidden="true">This is what<br /><em>fire</em> sounds like.</p>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════
+         PRODUCTS — DRUM KIT CARDS
+    ═══════════════════════════════════════════ -->
+    <section class="kits" id="kits">
+      <div class="container">
+        <div class="kits__header">
+          <p class="section-tag reveal-item">The Kits</p>
+          <h2 class="section-heading reveal-item">Drop-in ready.<br />No filler. No fluff.</h2>
+          <p class="section-sub reveal-item">Every sample was built in a session where something was at stake. You can hear the difference.</p>
+        </div>
+
+        <div class="kits__grid">
+
+          <!-- KIT 1: Flames Bounce Kit -->
+          <article class="kit-card reveal-item" data-type="drum-kit" style="cursor:pointer;" onclick="if(!event.target.closest('a,button')){window.location='kit-flames-bounce.html'}">
+            <div class="kit-card__media">
+              <img src="assets/FLAMES%20BOUNCE%20KIT%20COVER%20by%20%40blameiton313.png"
+                   alt="Flames Bounce Kit — official cover art"
+                   class="kit-card__cover"
+                   loading="lazy" />
+              <div class="kit-card__badge kit-card__badge--amber">ORIGINAL</div>
+              <div class="kit-card__badge kit-card__badge--fire" style="top: auto; bottom: 16px; left: 16px; right: auto;">🔥 BESTSELLER</div>
+              <div class="kit-card__hover-glow" aria-hidden="true"></div>
+            </div>
+            <div class="kit-card__body">
+              <div class="kit-card__meta">
+                <span class="kit-card__type">DRUM KIT</span>
+                <span class="kit-card__count">— 261 Unique Sounds</span>
+              </div>
+              <h3 class="kit-card__name">Flames Bounce Kit</h3>
+              <p class="kit-card__desc">This kit is packed with 261 unique sounds, all designed to give your beats that extra bounce and energy. Everything is ready to use, so you can jump straight into making fire beats!!!</p>
+              <ul class="kit-card__tags" aria-label="Kit contents">
+                <li>808s</li>
+                <li>Kicks</li>
+                <li>Snares</li>
+                <li>Hi Hats</li>
+                <li>Percs</li>
+                <li>Rims</li>
+                <li>Trap</li>
+                <li>Hip Hop</li>
+                <li>German Rap</li>
+              </ul>
+              <div class="kit-card__footer">
+                <div class="kit-card__price-block">
+                  <span class="kit-card__price">24,99€</span>
+                </div>
+                <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                  <a href="kit-flames-bounce.html" class="btn btn--ghost btn--sm">Explore Kit →</a>
+                  <a href="https://dnaplugins.lemonsqueezy.com/checkout/buy/079eb10a-39ae-4c25-9c5e-7eb2505b402b?embed=1&logo=0" class="btn btn--fire lemonsqueezy-button">BUY NOW →</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- KIT 2: Flames Bounce Vol. 2 -->
+          <article class="kit-card reveal-item" data-type="drum-kit" style="cursor:pointer;" onclick="if(!event.target.closest('a,button')){window.location='kit-flames-bounce-vol2.html'}">
+            <div class="kit-card__media">
+              <img
+                src="assets/flames-bounce-vol2-cover.png"
+                alt="Flames Bounce Vol. 2 — cover art"
+                class="kit-card__cover"
+                loading="lazy"
+              />
+              <div class="kit-card__badge kit-card__badge--amber">VOL. 2</div>
+              <div class="kit-card__hover-glow" aria-hidden="true"></div>
+            </div>
+            <div class="kit-card__body">
+              <div class="kit-card__meta">
+                <span class="kit-card__type">DRUM KIT</span>
+                <span class="kit-card__count">— 560 Unique Sounds</span>
+              </div>
+              <h3 class="kit-card__name">Flames Bounce Vol. 2</h3>
+              <p class="kit-card__desc">Full drum library, community samples, sorted folders, and hi-hat MIDI. Built for bounce — second chapter of the Flames series.</p>
+              <ul class="kit-card__tags" aria-label="Kit contents">
+                <li>808s</li>
+                <li>Percs</li>
+                <li>Vault</li>
+                <li>MIDI</li>
+                <li>Trap</li>
+                <li>Hip Hop</li>
+              </ul>
+              <div class="kit-card__footer">
+                <div class="kit-card__price-block">
+                  <span class="kit-card__price">39,99€</span>
+                </div>
+                <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                  <a href="kit-flames-bounce-vol2.html" class="btn btn--ghost btn--sm">Explore Vol. 2 →</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- More kits coming -->
+        <div class="kits__upcoming reveal-item">
+          <div class="kits__upcoming-inner">
+            <span class="kits__upcoming-label">More dropping soon</span>
+            <p class="kits__upcoming-text">We don't drop on a schedule. We drop when it's ready.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <span class="footer__logo">stxrm808<span class="nav__logo-accent">.</span></span>
+          <a href="#top" class="footer__tagline footer__tagline--home" aria-label="Back to top — Set the beat on fire">Set the beat on fire.</a>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <div class="footer__nav-col">
+            <strong>Kits</strong>
+            <ul role="list">
+              <li><a href="kit-flames-bounce.html">Flames Bounce Kit</a></li>
+              <li><a href="kit-flames-bounce-vol2.html">Flames Bounce Vol. 2</a></li>
+            </ul>
+          </div>
+          <div class="footer__nav-col">
+            <strong>stxrm808</strong>
+            <ul role="list">
+              <li><a href="https://instagram.com/stxrm808" target="_blank" rel="noopener">Instagram</a></li>
+              <li><a href="https://www.youtube.com/@stxrm808" target="_blank" rel="noopener">YouTube</a></li>
+            </ul>
+          </div>
+          <div class="footer__nav-col">
+            <strong>Policy</strong>
+            <ul role="list">
+              <li><a href="impressum.html">Impressum</a></li>
+              <li><a href="refund-policy.html">Refund Policy</a></li>
+              <li><a href="terms-of-use.html">Terms of Use</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 stxrm808. All rights reserved.</p>
+        <div class="footer__social" aria-label="Social media links">
+          <a href="https://instagram.com/stxrm808" target="_blank" rel="noopener" aria-label="Instagram" class="footer__social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@stxrm808" target="_blank" rel="noopener" aria-label="YouTube" class="footer__social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2 29 29 0 0 0-.46 5.33 29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"/><path d="M9.75 15.02V8.98L15.5 12l-5.75 3.02z" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js?v=13" defer></script>
+  <script src="js/video-scrub.js?v=9" defer></script>
+  <script src="js/interactions.js?v=3" defer></script>
+  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+</body>
+</html>

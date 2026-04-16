@@ -1,0 +1,249 @@
+/* ============================================================
+   DNA PLUGINS — VIDEO SCROLL SCRUB
+   Sticky full-viewport video driven by scroll position
+   ============================================================ */
+
+.video-scrub {
+  position: relative;
+  height: 200vh;
+  margin-top: 0;
+  z-index: 1;
+}
+
+/* Kit pages: less scroll before #kit-hero, tighter blend into next section */
+.video-scrub--kit-tight {
+  height: 118vh;
+}
+
+.video-scrub--kit-tight .video-scrub__blend-bottom {
+  height: 22vh;
+  background: linear-gradient(
+    to top,
+    #0e0909 0%,
+    rgba(14, 9, 9, 0.75) 35%,
+    transparent 100%
+  );
+}
+
+.video-scrub__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #080808;
+}
+
+/* No explosion.mp4 — dark hero with subtle top glow */
+.video-scrub--static-hero .video-scrub__sticky {
+  background:
+    radial-gradient(ellipse 120% 70% at 50% 0%, rgba(255, 68, 0, 0.09) 0%, transparent 55%),
+    #080808;
+}
+
+.video-scrub__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+/* ── Blend edges into surrounding sections ───────────────── */
+.video-scrub__blend-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 15vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(8,8,8,0.5) 0%,
+    transparent 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.video-scrub__blend-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 35vh;
+  background: linear-gradient(
+    to top,
+    #0e0909 0%,
+    rgba(14,9,9,0.7) 40%,
+    transparent 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Radial vignette ─────────────────────────────────────── */
+.video-scrub__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 45%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Scroll progress bar (thin orange line, top) ─────────── */
+.video-scrub__progress {
+  position: absolute;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: #E8A020;
+  z-index: 10;
+  transform-origin: left center;
+  transition: background 0.3s;
+  pointer-events: none;
+}
+.video-scrub__progress.is-hot {
+  background: #ff4400;
+  box-shadow: 0 0 8px rgba(255, 68, 0, 0.8);
+}
+
+/* ── Headline overlay ────────────────────────────────────── */
+.video-scrub__headline {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  text-align: center;
+  pointer-events: none;
+  opacity: 1;
+  will-change: opacity, transform;
+}
+
+.video-scrub__hl-tag {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #FF4400;
+  border: 1px solid rgba(255,68,0,0.35);
+  padding: 6px 16px;
+  margin-bottom: 28px;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+.video-scrub__hl-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(56px, 10vw, 128px);
+  font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  color: #F0EDE8;
+}
+
+.video-scrub__hl-text span {
+  display: block;
+  color: #FF4400;
+  text-shadow: 0 0 60px rgba(255,68,0,0.5), 0 0 120px rgba(255,68,0,0.2);
+}
+
+.video-scrub__hl-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  pointer-events: auto;
+}
+
+.video-scrub__hl-ctas a {
+  pointer-events: auto;
+}
+
+/* ── Progress counter ────────────────────────────────────── */
+.video-scrub__counter {
+  position: absolute;
+  bottom: 36px;
+  right: 40px;
+  z-index: 6;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  pointer-events: none;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.video-scrub__counter-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(255, 68, 0, 0.9);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.video-scrub__counter-pct {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255, 68, 0, 0.5);
+  letter-spacing: 0.06em;
+}
+
+/* ── Fallback: hide if video missing ─────────────────────── */
+.video-scrub--hidden {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .video-scrub { height: 170vh; margin-top: 0; }
+
+  .video-scrub--kit-tight {
+    height: 108vh;
+  }
+
+  .video-scrub--kit-tight .video-scrub__blend-bottom {
+    height: 18vh;
+  }
+
+  .video-scrub__hl-text {
+    font-size: clamp(40px, 12vw, 72px);
+  }
+
+  .video-scrub__hl-tag {
+    font-size: 10px;
+    margin-bottom: 20px;
+  }
+
+  .video-scrub__hl-ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .video-scrub__counter {
+    bottom: 24px;
+    right: 20px;
+  }
+
+  .video-scrub__counter-num { font-size: 36px; }
+  .video-scrub__counter-pct { font-size: 14px; }
+
+  /* Mobile: headline stays visible (no scroll scrub) */
+  .video-scrub__headline.is-mobile-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-scrub { display: none; }
+}
