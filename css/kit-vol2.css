@@ -4,6 +4,10 @@
   position: relative;
 }
 
+.page-kit-vol2.vol2-prelaunch {
+  overflow: hidden;
+}
+
 #vol2Starscape {
   position: fixed;
   inset: 0;
@@ -21,22 +25,232 @@
   z-index: 1;
 }
 
-/* Hero after scrub: no loop trailer, gradient + starfield read as one world */
-.page-kit-vol2 .kit-hero--vol2-static {
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse 120% 90% at 25% 15%, rgba(255, 68, 0, 0.08), transparent 52%),
-    radial-gradient(ellipse 90% 70% at 85% 75%, rgba(255, 176, 32, 0.06), transparent 50%),
-    var(--bg, #080808);
+.page-kit-vol2.vol2-prelaunch .nav,
+.page-kit-vol2.vol2-prelaunch > main,
+.page-kit-vol2.vol2-prelaunch .footer,
+.page-kit-vol2.vol2-prelaunch #vol2Starscape {
+  filter: blur(14px) saturate(0.75);
+  pointer-events: none;
+  user-select: none;
 }
 
-.page-kit-vol2 .kit-hero--vol2-static .kit-hero__inner {
-  position: relative;
-  z-index: 1;
+.page-kit-vol2 [data-vol2-buy].is-locked {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.vol2-lock-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  background:
+    radial-gradient(ellipse at center, rgba(255, 68, 0, 0.2) 0%, rgba(8, 8, 8, 0.92) 60%),
+    rgba(8, 8, 8, 0.9);
+}
+
+.page-kit-vol2.vol2-prelaunch .vol2-lock-overlay {
+  display: flex;
+}
+
+.vol2-lock-overlay__inner {
+  width: min(720px, 100%);
+  border: 1px solid rgba(255, 68, 0, 0.35);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: clamp(22px, 5vw, 38px);
+  text-align: center;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.62);
+}
+
+.vol2-lock-overlay__eyebrow {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.vol2-lock-overlay__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 5vw, 44px);
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-transform: uppercase;
+}
+
+.vol2-lock-overlay__sub {
+  margin: 10px 0 18px;
+  color: var(--text-2);
+}
+
+.vol2-lock-overlay__row {
+  display: flex;
+  justify-content: center;
+  gap: clamp(10px, 3vw, 24px);
+  flex-wrap: wrap;
+}
+
+.vol2-lock-overlay__block {
+  min-width: 66px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vol2-lock-overlay__num {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 6vw, 50px);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text);
+  text-shadow: 0 0 30px rgba(255, 68, 0, 0.2);
+  font-variant-numeric: tabular-nums;
+}
+
+.vol2-lock-overlay__lbl {
+  margin-top: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.vol2-lock-overlay__actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Unlock cutscene — Vol. 2 trailer takeover (GSAP-driven) */
+.vol2-unlock-cutscene {
+  position: fixed;
+  inset: 0;
+  z-index: 140;
+  pointer-events: auto;
+}
+
+.vol2-unlock-cutscene__dim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255, 68, 0, 0.22) 0%, rgba(0, 0, 0, 0) 55%),
+    radial-gradient(circle at 50% 55%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.86) 70%, rgba(0, 0, 0, 0.94) 100%);
+}
+
+.vol2-unlock-cutscene__frame {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(14px, 4vw, 28px);
+}
+
+/* Cutscene: fixed 16:9 frame (trailer is 16:9) */
+.vol2-unlock-cutscene__video-shell {
+  box-sizing: border-box;
+  --vol2-cutscene-pad: clamp(14px, 4vw, 28px);
+  --vol2-cutscene-max-h: min(86vh, calc(100dvh - var(--nav-h, 72px) - 56px));
+  width: min(
+    1120px,
+    calc(100vw - 2 * var(--vol2-cutscene-pad)),
+    calc(var(--vol2-cutscene-max-h) * 16 / 9)
+  );
+  aspect-ratio: 16 / 9;
+  max-height: var(--vol2-cutscene-max-h);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 68, 0, 0.35);
+  background: #000;
+  box-shadow:
+    0 30px 120px rgba(0, 0, 0, 0.75),
+    0 0 80px rgba(255, 68, 0, 0.18);
+  overflow: hidden;
+  line-height: 0;
+}
+
+.vol2-unlock-cutscene__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vol2-unlock-cutscene__skip {
+  position: absolute;
+  top: calc(var(--nav-h, 72px) + 14px);
+  right: 18px;
+  z-index: 2;
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.vol2-unlock-cutscene__skip:hover {
+  border-color: rgba(255, 68, 0, 0.45);
+  color: #fff;
+}
+
+.vol2-unlock-cutscene__sound {
+  position: absolute;
+  bottom: calc(var(--nav-h, 72px) + 18px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  appearance: none;
+  border: 1px solid rgba(255, 68, 0, 0.55);
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), 0 0 32px rgba(255, 68, 0, 0.2);
+  animation: vol2-unlock-sound-in 0.4s ease-out both;
+}
+
+.vol2-unlock-cutscene__sound:hover {
+  border-color: rgba(255, 120, 48, 0.85);
+  color: #fff;
+}
+
+@keyframes vol2-unlock-sound-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Hero: loop trailer + overlays (kit-page.css); starfield canvas stays behind main */
+.page-kit-vol2 .kit-hero {
+  overflow: hidden;
 }
 
 /* Hero cover: “coming soon” placeholder (replaces final artwork) */
-.page-kit-vol2 .kit-hero--vol2-static .kit-hero__cover--placeholder {
+.page-kit-vol2 .kit-hero .kit-hero__cover--placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,7 +272,7 @@
   color: rgba(240, 232, 224, 0.92);
 }
 
-.page-kit-vol2 .kit-hero--vol2-static .kit-hero__cover-placeholder__title {
+.page-kit-vol2 .kit-hero .kit-hero__cover-placeholder__title {
   font-family: var(--font-display);
   font-size: clamp(1.05rem, 2.8vw, 1.35rem);
   font-weight: 800;
@@ -68,7 +282,7 @@
   text-shadow: 0 0 40px rgba(255, 68, 0, 0.35);
 }
 
-.page-kit-vol2 .kit-hero--vol2-static .kit-hero__cover-placeholder__sub {
+.page-kit-vol2 .kit-hero .kit-hero__cover-placeholder__sub {
   font-family: var(--font-display);
   font-size: 10px;
   font-weight: 600;
@@ -315,6 +529,13 @@
 }
 
 /* ── Home demos carousel (#demos.fp-demos-carousel) — 2 cards per page, swipe + arrows ─ */
+#demos.fp-demos-carousel .fp-carousel,
+#demos.fp-demos-carousel .fp-carousel__arrow,
+#demos.fp-demos-carousel .fp-carousel__dot,
+#demos.fp-demos-carousel .fp-card__play-btn {
+  -webkit-tap-highlight-color: transparent;
+}
+
 #demos.fp-demos-carousel .fp-carousel {
   margin-top: 0.25rem;
   --fp-carousel-dur: 0.78s;
@@ -324,14 +545,58 @@
   overflow: visible;
 }
 
-#demos.fp-demos-carousel .fp-carousel:focus {
+/*
+  Fokus: kein großer Kasten um die ganze Carousel-Fläche (war optisch störend).
+  Tastatur: Navigation über Pfeile, Dots, Play, Timeline — dort dezente :focus-visible-Ringe.
+*/
+#demos.fp-demos-carousel .fp-carousel:focus,
+#demos.fp-demos-carousel .fp-carousel:focus-visible {
   outline: none;
+  box-shadow: none;
 }
 
-#demos.fp-demos-carousel .fp-carousel:focus-visible {
-  outline: 2px solid rgba(255, 120, 60, 0.85);
-  outline-offset: 8px;
-  border-radius: 12px;
+#demos.fp-demos-carousel .fp-carousel__arrow:focus {
+  outline: none;
+}
+#demos.fp-demos-carousel .fp-carousel__arrow:focus-visible {
+  outline: 2px solid rgba(255, 140, 90, 0.95);
+  outline-offset: 3px;
+}
+
+#demos.fp-demos-carousel .fp-carousel__dot:focus {
+  outline: none;
+}
+#demos.fp-demos-carousel .fp-carousel__dot:focus-visible {
+  outline: 2px solid rgba(255, 140, 90, 0.95);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+#demos.fp-demos-carousel .fp-card__play-btn:focus {
+  outline: none;
+}
+#demos.fp-demos-carousel .fp-card__play-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.92);
+  outline-offset: 3px;
+}
+
+#demos.fp-demos-carousel .fp-card__timeline:focus {
+  outline: none;
+}
+#demos.fp-demos-carousel .fp-card__timeline:focus-visible {
+  outline: 2px solid rgba(255, 120, 60, 0.8);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+#demos.fp-demos-carousel .fp-card__ig:focus-visible {
+  border-radius: 6px;
+  outline-offset: 3px;
+}
+
+/* Manche Browser zeigen trotzdem einen Rahmen am umgebenden Flex (Chrome/Safari) */
+#demos.fp-demos-carousel .fp-carousel__chrome:focus-within {
+  outline: none;
 }
 
 #demos.fp-demos-carousel .fp-carousel__chrome {
@@ -381,6 +646,26 @@
   align-self: stretch;
   align-items: stretch;
   /* Einheitliche Höhe: kit-vol2-page.js setzt min-height nach Messung aller Karten */
+  /*
+    Keine „Doppel-Ringe“ wie in style.css (0 0 0 1px + inset) — wirkt wie ein Kasten um die Karte.
+    Nur weicher Drop-Shadow + dezente Border.
+  */
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.5);
+  border-color: rgba(40, 24, 22, 0.95);
+}
+
+#demos.fp-demos-carousel .fp-carousel__page .fp-card:hover {
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.62);
+  border-color: rgba(255, 68, 0, 0.22);
+}
+
+#demos.fp-demos-carousel .fp-carousel__page .fp-card:hover .fp-card__avatar {
+  box-shadow: 0 0 18px rgba(255, 68, 0, 0.22);
+}
+
+#demos.fp-demos-carousel .fp-carousel__page .fp-card:hover .fp-card__play-btn:not(.is-playing) {
+  animation: none;
+  box-shadow: 0 0 22px rgba(255, 68, 0, 0.4);
 }
 
 #demos.fp-demos-carousel .fp-carousel__page .fp-card__artist-info {
@@ -487,10 +772,13 @@
 
 #demos.fp-demos-carousel .fp-carousel__arrow {
   flex-shrink: 0;
+  -webkit-appearance: none;
+  appearance: none;
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 68, 0, 0.38);
+  /* Eine Linie, kein zusätzlicher 0 0 0 1px-Ring (wirkte wie ein zweiter Kasten) */
+  border: 1px solid rgba(255, 68, 0, 0.35);
   background: rgba(20, 12, 10, 0.65);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -503,17 +791,13 @@
     box-shadow 0.28s ease,
     border-color 0.28s ease,
     opacity 0.25s ease;
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.4),
-    0 8px 28px rgba(255, 68, 0, 0.12);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
 }
 
 #demos.fp-demos-carousel .fp-carousel__arrow:hover:not(:disabled) {
-  transform: scale(1.08);
-  border-color: rgba(255, 120, 50, 0.75);
-  box-shadow:
-    0 0 0 1px rgba(255, 68, 0, 0.25),
-    0 12px 40px rgba(255, 68, 0, 0.28);
+  transform: scale(1.06);
+  border-color: rgba(255, 120, 50, 0.65);
+  box-shadow: 0 14px 40px rgba(255, 68, 0, 0.22);
   color: #fff;
 }
 
@@ -534,6 +818,8 @@
 }
 
 #demos.fp-demos-carousel .fp-carousel__dot {
+  -webkit-appearance: none;
+  appearance: none;
   width: 9px;
   height: 9px;
   border-radius: 999px;
@@ -574,9 +860,100 @@
   }
 }
 
+/* Hero — drop countdown (no .reveal-item: GSAP sets those to opacity:0 until ScrollTrigger; hero blocks often never “enter”) */
+.kit-vol2-countdown {
+  margin: 4px 0 22px;
+}
+
+.kit-vol2-countdown__eyebrow {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin: 0 0 14px;
+}
+
+.kit-vol2-countdown__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 3vw, 22px);
+  align-items: flex-start;
+}
+
+.kit-vol2-countdown__block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 52px;
+}
+
+.kit-vol2-countdown__num {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5.5vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 40px rgba(255, 68, 0, 0.12);
+}
+
+.kit-vol2-countdown__lbl {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-top: 8px;
+}
+
+.kit-vol2-countdown__live {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin: 0;
+  text-shadow: 0 0 28px var(--fire-glow);
+}
+
+.kit-vol2-countdown.is-live .kit-vol2-countdown__row {
+  display: none;
+}
+
+.page-kit-vol2 .kit-vol2-countdown.is-live .kit-vol2-countdown__eyebrow {
+  display: none;
+}
+
+/* Vol. 2 hero + bottom CTA — black button, orange outline (matches locked / pre-drop vibe) */
+.page-kit-vol2 .kit-hero__buy .btn--fire,
+.page-kit-vol2 #kit-vol2-cta .btn--fire {
+  background: #080808;
+  color: var(--text);
+  box-shadow: inset 0 0 0 2px var(--fire);
+}
+
+.page-kit-vol2 .kit-hero__buy .btn--fire:hover,
+.page-kit-vol2 #kit-vol2-cta .btn--fire:hover {
+  background: rgba(255, 68, 0, 0.07);
+  color: var(--text);
+  box-shadow:
+    inset 0 0 0 2px var(--fire-hover),
+    0 0 28px var(--fire-glow);
+  transform: translateY(-2px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   #vol2Starscape {
     display: none;
+  }
+
+  .vol2-unlock-cutscene {
+    display: none !important;
   }
 
   #demos.fp-demos-carousel .fp-carousel {

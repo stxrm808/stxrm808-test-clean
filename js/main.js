@@ -257,8 +257,8 @@ function initAudioPlayers() {
 
     function resetThisPlayer() {
       isPlaying = false;
-      playIcon.style.display  = '';
-      pauseIcon.style.display = 'none';
+      if (playIcon) playIcon.style.display = '';
+      if (pauseIcon) pauseIcon.style.display = 'none';
       player.classList.remove('is-playing');
     }
 
@@ -291,8 +291,8 @@ function initAudioPlayers() {
           resetThisPlayer();
         });
         isPlaying = true;
-        playIcon.style.display  = 'none';
-        pauseIcon.style.display = '';
+        if (playIcon) playIcon.style.display = 'none';
+        if (pauseIcon) pauseIcon.style.display = '';
         player.classList.add('is-playing');
         activeAudios.set(player, audio);
       }
@@ -404,6 +404,11 @@ function initHeroCanvas() {
   }
 
   function draw() {
+    if (document.hidden) {
+      raf = 0;
+      return;
+    }
+
     ctx.clearRect(0, 0, W, H);
 
     // Connection lines between close particles
@@ -447,11 +452,10 @@ function initHeroCanvas() {
 
   draw();
 
-  // Pause when tab hidden
+  // Pause when tab hidden — vor erneutem draw altes rAF killen (keine doppelten Loops)
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      cancelAnimationFrame(raf);
-    } else {
+    cancelAnimationFrame(raf);
+    if (!document.hidden) {
       draw();
     }
   });
@@ -480,7 +484,7 @@ function initTrailerSound() {
       video.muted = true;
       btn.classList.remove('is-on');
       btn.setAttribute('aria-pressed', 'false');
-      btn.setAttribute('aria-label', 'Sound einschalten');
+      btn.setAttribute('aria-label', 'Turn sound on');
     }
   });
 }
@@ -667,14 +671,38 @@ function initDemosCarousel() {
     if (img.complete) scheduleEqualize();
   });
 
-  prevBtn?.addEventListener('click', () => goTo(page - 1));
-  nextBtn?.addEventListener('click', () => goTo(page + 1));
+  /** Nach Mausklick Fokus entfernen — verhindert hängende Browser-/Focus-Ringe (nicht bei Tastatur: detail 0). */
+  function blurIfMouseClick(e) {
+    if (e.detail > 0) {
+      requestAnimationFrame(() => {
+        try {
+          e.currentTarget.blur();
+        } catch (err) {
+          /* ignore */
+        }
+      });
+    }
+  }
+
+  prevBtn?.addEventListener('click', (e) => {
+    goTo(page - 1);
+    blurIfMouseClick(e);
+  });
+  nextBtn?.addEventListener('click', (e) => {
+    goTo(page + 1);
+    blurIfMouseClick(e);
+  });
 
   dots.forEach((d) => {
-    d.addEventListener('click', () => {
+    d.addEventListener('click', (e) => {
       const n = parseInt(d.getAttribute('data-fp-page'), 10);
       if (!isNaN(n)) goTo(n);
+      blurIfMouseClick(e);
     });
+  });
+
+  fpRoot.addEventListener('mouseleave', () => {
+    if (document.activeElement === fpRoot) fpRoot.blur();
   });
 
   if (maxPage > 0) {
@@ -854,8 +882,8 @@ function initFeaturedPlayers() {
     }
 
     function setPlaying(playing) {
-      playIcon.style.display  = playing ? 'none' : '';
-      pauseIcon.style.display = playing ? '' : 'none';
+      if (playIcon) playIcon.style.display = playing ? 'none' : '';
+      if (pauseIcon) pauseIcon.style.display = playing ? '' : 'none';
       playBtn.classList.toggle('is-playing', playing);
       playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play beat');
       playing ? animateBars() : idleBars();
@@ -867,7 +895,7 @@ function initFeaturedPlayers() {
       setPlaying(false);
     };
 
-    playBtn.addEventListener('click', async () => {
+    playBtn.addEventListener('click', async (e) => {
       if (audio.paused) {
         // Pause all other players first
         allSetPaused.forEach((fn, i) => { if (i !== idx && fn) fn(); });
@@ -900,6 +928,9 @@ function initFeaturedPlayers() {
         audio.pause();
         setPlaying(false);
       }
+      if (e.detail > 0) {
+        requestAnimationFrame(() => playBtn.blur());
+      }
     });
 
     function fmt(t) {
@@ -917,6 +948,7 @@ function initFeaturedPlayers() {
       if (timeCurrent)    timeCurrent.textContent    = fmt(audio.currentTime);
       if (timelineFill)   timelineFill.style.width   = `${pct * 100}%`;
       if (timelineThumb)  timelineThumb.style.left   = `${pct * 100}%`;
+      if (timeline)       timeline.setAttribute('aria-valuenow', String(Math.round(pct * 100)));
     });
 
     if (timeline) {
@@ -924,6 +956,9 @@ function initFeaturedPlayers() {
         if (!audio.duration) return;
         const rect = timeline.getBoundingClientRect();
         audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+        if (e.detail > 0) {
+          requestAnimationFrame(() => timeline.blur());
+        }
       });
     }
 
@@ -932,6 +967,7 @@ function initFeaturedPlayers() {
       if (timelineFill)  timelineFill.style.width = '0%';
       if (timelineThumb) timelineThumb.style.left  = '0%';
       if (timeCurrent)   timeCurrent.textContent   = '0:00';
+      if (timeline)       timeline.setAttribute('aria-valuenow', '0');
     });
 
     idleBars();

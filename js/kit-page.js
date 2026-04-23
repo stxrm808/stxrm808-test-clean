@@ -125,7 +125,7 @@
       const isOn = !heroVideo.muted;
       heroSoundBtn.classList.toggle('is-on', isOn);
       heroSoundBtn.setAttribute('aria-pressed', String(isOn));
-      heroSoundBtn.setAttribute('aria-label', isOn ? 'Sound ausschalten' : 'Sound einschalten');
+      heroSoundBtn.setAttribute('aria-label', isOn ? 'Turn sound off' : 'Turn sound on');
       if (offIcon) offIcon.style.display = isOn ? 'none' : '';
       if (onIcon)  onIcon.style.display  = isOn ? '' : 'none';
       if (isOn && heroVideo.paused) heroVideo.play().catch(() => {});

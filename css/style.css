@@ -792,6 +792,11 @@ a:focus-visible {
   transform: scale(1.04);
 }
 
+.kit-card__media--locked .kit-card__cover {
+  filter: blur(8px) saturate(0.7) brightness(0.72);
+  transform: scale(1.06);
+}
+
 /* Vol. 2 (etc.) — gleicher Look wie kit-hero Placeholder auf der Kit-Seite */
 .kit-card__cover-placeholder {
   width: 100%;
@@ -2476,4 +2481,152 @@ a.footer__tagline--home:focus-visible {
   top: auto;
   bottom: 16px;
   left: 16px;
+}
+
+/*
+  Home — Beat-Demos: keine Doppel-Ringe (0 0 0 1px + inset) aus .fp-card / Pfeilen.
+  Liegt in style.css + !important, damit es auch bei altem kit-vol2.css-Cache greift.
+*/
+#demos.fp-demos-carousel .fp-carousel__arrow {
+  border: 1px solid rgba(255, 68, 0, 0.35) !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+#demos.fp-demos-carousel .fp-carousel__arrow:hover:not(:disabled) {
+  box-shadow: 0 14px 40px rgba(255, 68, 0, 0.22) !important;
+}
+
+#demos.fp-demos-carousel .fp-carousel__page .fp-card {
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.5) !important;
+  border-color: rgba(40, 24, 22, 0.95) !important;
+}
+
+#demos.fp-demos-carousel .fp-carousel__page .fp-card:hover {
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.62) !important;
+  border-color: rgba(255, 68, 0, 0.22) !important;
+}
+
+#demos.fp-demos-carousel .fp-carousel__page .fp-card:hover .fp-card__avatar {
+  box-shadow: 0 0 18px rgba(255, 68, 0, 0.22) !important;
+}
+
+#demos.fp-demos-carousel .fp-carousel__page .fp-card:hover .fp-card__play-btn:not(.is-playing) {
+  animation: none !important;
+  box-shadow: 0 0 22px rgba(255, 68, 0, 0.4) !important;
+}
+
+/*
+  Vol. 2 — „locked vault“ price (no digits, no TBA)
+  Modifier: --sm (Kit-Karte), --hero (Kit-Header), --cta (Bottom-CTA)
+*/
+.kit-price-tbd {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  user-select: none;
+  line-height: 1.05;
+  position: relative;
+}
+
+.kit-price-tbd__label {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: rgba(255, 180, 120, 0.88);
+  text-shadow:
+    0 0 18px rgba(255, 68, 0, 0.55),
+    0 0 40px rgba(255, 68, 0, 0.2);
+  padding: 3px 0 5px;
+  border-bottom: 1px solid rgba(255, 68, 0, 0.35);
+  box-sizing: border-box;
+}
+
+.kit-price-tbd__value {
+  font-family: ui-monospace, 'SF Mono', 'Consolas', monospace;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  background: linear-gradient(
+    105deg,
+    #ff4400 0%,
+    #ffb020 38%,
+    #ff6a2e 52%,
+    #ffb020 66%,
+    #ff4400 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation:
+    kitPriceTbdShimmer 3.2s ease-in-out infinite,
+    kitPriceTbdPulse 2.8s ease-in-out infinite;
+  filter: drop-shadow(0 0 16px rgba(255, 68, 0, 0.5));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kit-price-tbd__value {
+    animation: none;
+    background-position: 50% 50%;
+    filter: drop-shadow(0 0 12px rgba(255, 68, 0, 0.4));
+  }
+}
+
+@keyframes kitPriceTbdShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes kitPriceTbdPulse {
+  0%, 100% { opacity: 0.88; }
+  50% { opacity: 1; }
+}
+
+.kit-card__price.kit-price-tbd--sm {
+  color: transparent;
+}
+
+.kit-price-tbd--sm .kit-price-tbd__label {
+  font-size: 8px;
+  letter-spacing: 0.28em;
+}
+
+.kit-price-tbd--sm .kit-price-tbd__value {
+  font-size: 1.15rem;
+}
+
+.kit-hero__price.kit-price-tbd--hero {
+  color: transparent;
+  letter-spacing: 0;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 68, 0, 0.28);
+  border-radius: 6px;
+  background:
+    linear-gradient(145deg, rgba(255, 68, 0, 0.07) 0%, transparent 55%),
+    rgba(0, 0, 0, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 12px 40px rgba(255, 68, 0, 0.12);
+}
+
+.kit-price-tbd--hero .kit-price-tbd__value {
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+}
+
+.kit-cta__price.kit-price-tbd--cta {
+  color: transparent;
+  letter-spacing: 0;
+  margin-bottom: 28px;
+}
+
+.kit-price-tbd--cta .kit-price-tbd__value {
+  font-size: clamp(2.25rem, 6vw, 3.1rem);
+}
+
+.kit-price-tbd--cta .kit-price-tbd__label {
+  font-size: 11px;
+  letter-spacing: 0.38em;
 }

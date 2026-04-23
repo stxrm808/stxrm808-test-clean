@@ -10,6 +10,24 @@
   z-index: 1;
 }
 
+/* Home: eine Section = Hero-Scroll + Producer-Demos (Demos nicht als eigener Block „darunter“) */
+.video-scrub--home {
+  height: auto;
+  min-height: 0;
+}
+
+.video-scrub--home .video-scrub__scroll-range {
+  height: 200vh;
+  position: relative;
+}
+
+/* Etwas mehr Überlappung: weicher Übergang in die Producer-Fläche */
+.video-scrub__producer {
+  position: relative;
+  z-index: 2;
+  margin-top: clamp(-15vh, -10vw, -88px);
+}
+
 /* Kit pages: less scroll before #kit-hero, tighter blend into next section */
 .video-scrub--kit-tight {
   height: 118vh;
@@ -48,6 +66,7 @@
   object-fit: cover;
   object-position: center center;
   display: block;
+  z-index: 0;
 }
 
 /* ── Blend edges into surrounding sections ───────────────── */
@@ -76,6 +95,64 @@
   );
   z-index: 2;
   pointer-events: none;
+}
+
+/* Home: dunkler Blend weicht zurück, wenn Producer-Section einblendet */
+.video-scrub--home .video-scrub__blend-top,
+.video-scrub--home .video-scrub__blend-bottom {
+  z-index: 3;
+}
+
+.video-scrub--home .video-scrub__blend-bottom {
+  height: min(56vh, 600px);
+  opacity: calc(1 - var(--hero-exit-smooth, 0) * 0.72);
+  background: linear-gradient(
+    to top,
+    #0e0909 0%,
+    #0c0808 8%,
+    rgba(18, 10, 8, 0.92) 22%,
+    rgba(255, 68, 0, 0.07) 38%,
+    rgba(11, 9, 9, 0.5) 58%,
+    rgba(8, 8, 8, 0.14) 78%,
+    transparent 100%
+  );
+}
+
+/* Warmes „Bridge“-Leuchten unten — verbindet Explosion-Video mit Producer-Hintergrund */
+.video-scrub--home .video-scrub__sticky::after {
+  content: '';
+  position: absolute;
+  inset: auto -20% 0;
+  height: min(42vh, 480px);
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse 90% 75% at 50% 100%,
+    rgba(255, 68, 0, 0.14) 0%,
+    rgba(255, 100, 32, 0.05) 42%,
+    transparent 72%
+  );
+  opacity: calc(0.92 - var(--hero-exit-smooth, 0) * 0.75);
+  mix-blend-mode: screen;
+}
+
+.video-scrub--home .video-scrub__vignette {
+  opacity: calc(0.9 - var(--hero-exit-smooth, 0) * 0.22);
+}
+
+/*
+  Nur EIN producer-bg. Kein zweites Video im Hero.
+  Overlay/Blend nutzt --hero-exit-smooth; Inhalt blendet mit --hero-demos-reveal (etwas später → klarerer Übergang).
+*/
+#demos.featured-producer {
+  border-top: none;
+  opacity: calc(0.04 + var(--hero-demos-reveal, var(--hero-exit-smooth, 0)) * 0.96);
+  transform: translateY(calc((1 - var(--hero-demos-reveal, var(--hero-exit-smooth, 0))) * 28px));
+  will-change: opacity, transform;
+}
+
+#demos.featured-producer .featured-producer__bg {
+  opacity: calc(0.12 + var(--hero-demos-reveal, var(--hero-exit-smooth, 0)) * 0.28);
 }
 
 /* ── Radial vignette ─────────────────────────────────────── */
@@ -205,6 +282,14 @@
 @media (max-width: 768px) {
   .video-scrub { height: 170vh; margin-top: 0; }
 
+  .video-scrub--home {
+    height: auto;
+  }
+
+  .video-scrub--home .video-scrub__scroll-range {
+    height: 170vh;
+  }
+
   .video-scrub--kit-tight {
     height: 108vh;
   }
@@ -237,13 +322,30 @@
   .video-scrub__counter-num { font-size: 36px; }
   .video-scrub__counter-pct { font-size: 14px; }
 
-  /* Mobile: headline stays visible (no scroll scrub) */
-  .video-scrub__headline.is-mobile-visible {
+  .video-scrub--home .video-scrub__blend-bottom {
+    height: min(44vh, 480px);
+  }
+
+  /*
+    Mobile: Hero-Text bleibt lesbar — Inline-Styles vom Video-Scrub überschreiben
+    (vorher .is-mobile-visible, wurde nie per JS gesetzt).
+  */
+  .video-scrub--home .video-scrub__headline {
     opacity: 1 !important;
     transform: none !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .video-scrub { display: none; }
+  #videoScrub.video-scrub--home,
+  #demos.featured-producer {
+    --hero-exit: 1 !important;
+    --hero-exit-smooth: 1 !important;
+    --hero-demos-reveal: 1 !important;
+  }
+
+  #demos.featured-producer {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

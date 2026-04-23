@@ -20,9 +20,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=16" />
-  <link rel="stylesheet" href="css/video-scrub.css?v=7" />
-  <link rel="stylesheet" href="css/kit-vol2.css?v=24" />
+  <link rel="stylesheet" href="css/style.css?v=24" />
+  <link rel="stylesheet" href="css/video-scrub.css?v=25" />
+  <link rel="stylesheet" href="css/kit-vol2.css?v=27" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -66,17 +66,24 @@
     <!-- ═══════════════════════════════════════════
          VIDEO SCROLL SCRUB — explosion.mp4 (hero background)
     ═══════════════════════════════════════════ -->
-    <section class="video-scrub" id="videoScrub" aria-hidden="true">
+    <!-- Eine Section: Hero-Scroll + Producer-Demos entstehen aus demselben Block (nicht „darunter angereiht“) -->
+    <section
+      class="video-scrub video-scrub--home"
+      id="videoScrub"
+      style="--scrub-p: 0; --hero-exit: 0; --hero-exit-smooth: 0; --hero-demos-reveal: 0"
+    >
+      <div class="video-scrub__scroll-range" aria-hidden="true">
       <div class="video-scrub__sticky">
         <video
           id="scrubVideo"
           class="video-scrub__video"
+          src="assets/explosion.mp4?v=4"
           muted
           playsinline
           preload="auto"
           disablepictureinpicture
         >
-          <source src="assets/explosion.mp4?v=2" type="video/mp4" />
+          <source src="assets/explosion.mp4?v=4" type="video/mp4" />
         </video>
         <div class="video-scrub__headline" id="scrubHeadline" aria-hidden="true">
           <div class="video-scrub__hl-tag">Premium Drum Kits</div>
@@ -96,12 +103,18 @@
         <div class="video-scrub__vignette"></div>
         <div class="video-scrub__progress" id="scrubProgress"></div>
       </div>
-    </section>
+      </div>
 
     <!-- ═══════════════════════════════════════════
          PRODUCER DEMOS — Flames Bounce Vol. 2 (home only, carousel)
     ═══════════════════════════════════════════ -->
-    <section class="featured-producer fp-demos-carousel" id="demos">
+    <div
+      class="featured-producer fp-demos-carousel video-scrub__producer"
+      id="demos"
+      role="region"
+      aria-label="Producer demos"
+      style="--hero-exit: 0; --hero-exit-smooth: 0; --hero-demos-reveal: 0"
+    >
       <video class="featured-producer__bg" src="assets/producer-bg.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
       <div class="container">
 
@@ -434,6 +447,7 @@
       <audio id="fp5Audio" src="assets/demos/offbeat-atlantik-demo.mp3" preload="metadata"></audio>
 
       <p class="featured-producer__slogan" aria-hidden="true">This is what<br /><em>fire</em> sounds like.</p>
+    </div>
     </section>
 
 
@@ -493,7 +507,7 @@
 
           <!-- KIT 2: Flames Bounce Vol. 2 -->
           <article class="kit-card reveal-item" data-type="drum-kit" style="cursor:pointer;" onclick="if(!event.target.closest('a,button')){window.location='kit-flames-bounce-vol2.html'}">
-            <div class="kit-card__media">
+            <div class="kit-card__media kit-card__media--locked">
               <img
                 src="assets/flames-bounce-vol2-cover.png"
                 alt="Flames Bounce Vol. 2 — cover art"
@@ -520,7 +534,10 @@
               </ul>
               <div class="kit-card__footer">
                 <div class="kit-card__price-block">
-                  <span class="kit-card__price">39,99€</span>
+                  <span class="kit-card__price kit-price-tbd kit-price-tbd--sm" aria-label="Pricing hidden until release">
+                    <span class="kit-price-tbd__label">Locked</span>
+                    <span class="kit-price-tbd__value" aria-hidden="true">▓▓▓▓▓</span>
+                  </span>
                 </div>
                 <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
                   <a href="kit-flames-bounce-vol2.html" class="btn btn--ghost btn--sm">Explore Vol. 2 →</a>
@@ -573,7 +590,7 @@
           <div class="footer__nav-col">
             <strong>Policy</strong>
             <ul role="list">
-              <li><a href="impressum.html">Impressum</a></li>
+              <li><a href="impressum.html">Legal notice</a></li>
               <li><a href="refund-policy.html">Refund Policy</a></li>
               <li><a href="terms-of-use.html">Terms of Use</a></li>
             </ul>
@@ -598,9 +615,9 @@
   <!-- GSAP + ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-  <script src="js/main.js?v=13" defer></script>
-  <script src="js/video-scrub.js?v=9" defer></script>
-  <script src="js/interactions.js?v=3" defer></script>
+  <script src="js/main.js?v=16" defer></script>
+  <script src="js/video-scrub.js?v=30" defer></script>
+  <script src="js/interactions.js?v=6" defer></script>
   <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
 </body>
 </html>

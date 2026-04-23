@@ -23,19 +23,24 @@
 
   let mouseX = -200, mouseY = -200;
   let curX   = -200, curY   = -200;
+  let lastCursorT = 0;
 
   /* mouseX / mouseY updated in combined handler below */
 
-  // Smooth cursor follow
-  function animateCursor() {
-    const ease = 0.14;
-    curX += (mouseX - curX) * ease;
-    curY += (mouseY - curY) * ease;
+  // Smooth cursor follow — time-based (same feel at 30/60/120 FPS; fixed per-frame lerp felt slower on heavy pages)
+  function animateCursor(now) {
+    if (!lastCursorT) lastCursorT = now;
+    const dtMs = Math.min(now - lastCursorT, 100);
+    lastCursorT = now;
+    const lambda = 9.06; // ~matches old 0.14 lerp @ 60fps
+    const k = 1 - Math.exp(-lambda * (dtMs / 1000));
+    curX += (mouseX - curX) * k;
+    curY += (mouseY - curY) * k;
     cursor.style.transform    = `translate(${curX - 20}px, ${curY - 20}px)`;
     cursorDot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
     requestAnimationFrame(animateCursor);
   }
-  animateCursor();
+  requestAnimationFrame(animateCursor);
 
   // Fire trail particles
   const trailCanvas = document.createElement('canvas');
@@ -111,6 +116,10 @@
   });
 
   function drawTrail() {
+    if (document.hidden) {
+      requestAnimationFrame(drawTrail);
+      return;
+    }
     if (nativeCursorInFinder) {
       tctx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
       requestAnimationFrame(drawTrail);
@@ -242,6 +251,7 @@
 
   /* ── 5. PRODUCER CARD — TILT + GLOW + FIRE PARTICLES ────── */
   document.querySelectorAll('.fp-card').forEach(card => {
+    const inDemosCarousel = Boolean(card.closest('#demos.fp-demos-carousel'));
     const glow = document.createElement('div');
     glow.style.cssText = 'position:absolute;inset:0;opacity:0;pointer-events:none;z-index:4;transition:opacity 0.25s;border-radius:inherit;';
     card.appendChild(glow);
@@ -252,17 +262,21 @@
       const y    = e.clientY - rect.top;
       const cx   = rect.width  / 2;
       const cy   = rect.height / 2;
-      const rotX = ((y - cy) / cy) * -10;
-      const rotY = ((x - cx) / cx) *  10;
+      const damp = inDemosCarousel ? 0.28 : 1;
+      const rotX = ((y - cy) / cy) * -10 * damp;
+      const rotY = ((x - cx) / cx) *  10 * damp;
 
-      // 3D tilt
-      card.style.transform = `perspective(700px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`;
+      // 3D tilt (Beat-Demos: stark gedämpft — sonst wirkt die Karte wie ein schiefer Kasten)
+      const scale = inDemosCarousel ? 1.01 : 1.03;
+      card.style.transform = `perspective(700px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${scale})`;
 
       // Moving fire spotlight
       const pctX = (x / rect.width)  * 100;
       const pctY = (y / rect.height) * 100;
-      glow.style.background = `radial-gradient(circle at ${pctX}% ${pctY}%, rgba(255,68,0,0.38) 0%, rgba(255,68,0,0.08) 35%, transparent 65%)`;
-      glow.style.opacity = '1';
+      const glowAlpha = inDemosCarousel ? 0.18 : 0.38;
+      const glowMid = inDemosCarousel ? 0.04 : 0.08;
+      glow.style.background = `radial-gradient(circle at ${pctX}% ${pctY}%, rgba(255,68,0,${glowAlpha}) 0%, rgba(255,68,0,${glowMid}) 35%, transparent 65%)`;
+      glow.style.opacity = inDemosCarousel ? '0.65' : '1';
 
       if (nativeCursorInFinder) return;
       // Fire particles burst from cursor position on card

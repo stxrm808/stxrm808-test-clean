@@ -17,14 +17,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=16" />
+  <link rel="stylesheet" href="css/style.css?v=24" />
   <link rel="stylesheet" href="css/kit-page.css?v=13" />
-  <link rel="stylesheet" href="css/kit-vol2.css?v=24" />
+  <link rel="stylesheet" href="css/kit-vol2.css?v=33" />
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Product","name":"Flames Bounce Vol. 2","brand":{"@type":"Brand","name":"stxrm808"},"description":"560 WAVs: 429 drum sounds, 35 stxrm808 samples, 96 community samples.","category":"MusicProductionSoftware","offers":{"@type":"Offer","price":"39.99","priceCurrency":"EUR"}}
+  {"@context":"https://schema.org","@type":"Product","name":"Flames Bounce Vol. 2","brand":{"@type":"Brand","name":"stxrm808"},"description":"560 WAVs: 429 drum sounds, 35 stxrm808 samples, 96 community samples.","category":"MusicProductionSoftware","offers":{"@type":"Offer","priceCurrency":"EUR","availability":"https://schema.org/PreOrder","url":"https://www.stxrm808.com/kit-flames-bounce-vol2.html"}}
   </script>
 </head>
-<body id="top" class="page-kit-flames page-kit-vol2">
+<body id="top" class="page-kit-flames page-kit-vol2 vol2-prelaunch">
 
   <canvas id="vol2Starscape" aria-hidden="true"></canvas>
 
@@ -53,12 +53,45 @@
     </div>
   </nav>
 
+  <div class="vol2-lock-overlay" id="vol2LockOverlay" aria-live="polite" aria-label="Flames Bounce Vol. 2 is locked until drop">
+    <div class="vol2-lock-overlay__inner">
+      <p class="vol2-lock-overlay__eyebrow">Flames Bounce Vol. 2</p>
+      <h2 class="vol2-lock-overlay__title">Locked Until Drop</h2>
+      <p class="vol2-lock-overlay__sub">The full page unlocks when the countdown reaches zero.</p>
+      <div class="vol2-lock-overlay__row" role="timer">
+        <div class="vol2-lock-overlay__block">
+          <span class="vol2-lock-overlay__num" data-cd-lock="days">—</span>
+          <span class="vol2-lock-overlay__lbl">Days</span>
+        </div>
+        <div class="vol2-lock-overlay__block">
+          <span class="vol2-lock-overlay__num" data-cd-lock="hours">—</span>
+          <span class="vol2-lock-overlay__lbl">Hrs</span>
+        </div>
+        <div class="vol2-lock-overlay__block">
+          <span class="vol2-lock-overlay__num" data-cd-lock="minutes">—</span>
+          <span class="vol2-lock-overlay__lbl">Min</span>
+        </div>
+        <div class="vol2-lock-overlay__block">
+          <span class="vol2-lock-overlay__num" data-cd-lock="seconds">—</span>
+          <span class="vol2-lock-overlay__lbl">Sec</span>
+        </div>
+      </div>
+      <div class="vol2-lock-overlay__actions">
+        <a href="index.html" class="btn btn--ghost btn--sm">Back to Main Page →</a>
+      </div>
+    </div>
+  </div>
+
   <main>
 
     <!-- ═══════════════════════════════════════════
          KIT HERO
     ═══════════════════════════════════════════ -->
-    <section class="kit-hero kit-hero--vol2-static" id="kit-hero">
+    <section class="kit-hero" id="kit-hero">
+      <video class="kit-hero__video-bg" src="assets/FLAMESBOUNCEKIT2-TRAILER-new-text.mp4?v=4"
+             autoplay muted loop playsinline aria-hidden="true"></video>
+      <div class="kit-hero__video-overlay"></div>
+
       <div class="container">
         <div class="kit-hero__inner">
 
@@ -103,17 +136,52 @@
               <li>Hip Hop</li>
             </ul>
 
+            <div class="kit-vol2-countdown" id="kitVol2Countdown" data-drop-iso="2026-05-01T12:00:00+02:00">
+              <p class="kit-vol2-countdown__eyebrow">Drop · 1 May 2026 · 12:00 CEST</p>
+              <div class="kit-vol2-countdown__row" role="timer">
+                <div class="kit-vol2-countdown__block">
+                  <span class="kit-vol2-countdown__num" data-cd="days">—</span>
+                  <span class="kit-vol2-countdown__lbl">Days</span>
+                </div>
+                <div class="kit-vol2-countdown__block">
+                  <span class="kit-vol2-countdown__num" data-cd="hours">—</span>
+                  <span class="kit-vol2-countdown__lbl">Hrs</span>
+                </div>
+                <div class="kit-vol2-countdown__block">
+                  <span class="kit-vol2-countdown__num" data-cd="minutes">—</span>
+                  <span class="kit-vol2-countdown__lbl">Min</span>
+                </div>
+                <div class="kit-vol2-countdown__block">
+                  <span class="kit-vol2-countdown__num" data-cd="seconds">—</span>
+                  <span class="kit-vol2-countdown__lbl">Sec</span>
+                </div>
+              </div>
+              <p class="kit-vol2-countdown__live" hidden>Drop is live</p>
+            </div>
+
             <div class="kit-hero__buy reveal-item">
-              <span class="kit-hero__price">39,99€</span>
-              <a href="https://instagram.com/stxrm808" target="_blank" rel="noopener"
-                 class="btn btn--fire btn--lg">
-                FOLLOW FOR DROP →
+              <a href="https://dnaplugins.lemonsqueezy.com/checkout/buy/9889530a-bb0b-4c5c-82e8-e90b0a7dd23a?embed=1&amp;logo=0"
+                 class="btn btn--fire btn--lg lemonsqueezy-button" data-vol2-buy>
+                BUY FLAMES BOUNCE VOL. 2 →
               </a>
             </div>
           </div>
 
         </div>
       </div>
+
+      <button class="kit-hero__sound-btn" id="kitHeroSoundBtn" aria-label="Turn sound on" aria-pressed="false">
+        <svg class="sound-off-icon" width="16" height="14" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+          <polygon points="9 1 5 5 1 5 1 11 5 11 9 15" fill="currentColor" stroke="none" opacity="0.85"/>
+          <line x1="13" y1="5" x2="17" y2="9"/>
+          <line x1="17" y1="5" x2="13" y2="9"/>
+        </svg>
+        <svg class="sound-on-icon" width="16" height="14" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="display:none" aria-hidden="true">
+          <polygon points="9 1 5 5 1 5 1 11 5 11 9 15" fill="currentColor" stroke="none" opacity="0.85"/>
+          <path d="M12 4.5a4.5 4.5 0 010 7"/>
+          <path d="M14.5 2a8 8 0 010 12"/>
+        </svg>
+      </button>
     </section>
 
     <!-- ═══════════════════════════════════════════
@@ -871,14 +939,12 @@
     ═══════════════════════════════════════════ -->
     <section class="kit-cta" id="kit-vol2-cta">
       <div class="container">
-        <h2 class="kit-cta__heading reveal-item">Vol. 2 — still <em>heating up</em></h2>
-        <p class="kit-cta__sub reveal-item">429 drum sounds, 35 stxrm808 samples, 96 community samples — 560 WAVs. Plus hi-hat MIDI. Drop coming soon.</p>
-
-        <span class="kit-cta__price reveal-item">39,99€</span>
+        <h2 class="kit-cta__heading reveal-item">Same bounce, <em>more fire.</em></h2>
+        <p class="kit-cta__sub reveal-item">429 drum sounds, 35 stxrm808 samples, 96 community samples — 560 WAVs. Plus hi-hat MIDI.</p>
         <div class="reveal-item">
-          <a href="https://instagram.com/stxrm808" target="_blank" rel="noopener"
-             class="btn btn--fire btn--lg">
-            FOLLOW FOR DROP →
+          <a href="https://dnaplugins.lemonsqueezy.com/checkout/buy/9889530a-bb0b-4c5c-82e8-e90b0a7dd23a?embed=1&amp;logo=0"
+             class="btn btn--fire btn--lg lemonsqueezy-button" data-vol2-buy>
+            BUY FLAMES BOUNCE VOL. 2 →
           </a>
         </div>
       </div>
@@ -912,7 +978,7 @@
           <div class="footer__nav-col">
             <strong>Policy</strong>
             <ul role="list">
-              <li><a href="impressum.html">Impressum</a></li>
+              <li><a href="impressum.html">Legal notice</a></li>
               <li><a href="refund-policy.html">Refund Policy</a></li>
               <li><a href="terms-of-use.html">Terms of Use</a></li>
             </ul>
@@ -935,9 +1001,10 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-  <script src="js/main.js?v=13" defer></script>
-  <script src="js/kit-page.js?v=10" defer></script>
-  <script src="js/interactions.js?v=5" defer></script>
-  <script src="js/kit-vol2-page.js?v=8" defer></script>
+  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+  <script src="js/main.js?v=16" defer></script>
+  <script src="js/kit-page.js?v=11" defer></script>
+  <script src="js/interactions.js?v=6" defer></script>
+  <script src="js/kit-vol2-page.js?v=29" defer></script>
 </body>
 </html>

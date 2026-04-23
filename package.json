@@ -1,0 +1,20 @@
+{
+  "name": "stxrm808-site",
+  "private": true,
+  "scripts": {
+    "postinstall": "playwright install webkit",
+    "pw:install": "playwright install webkit",
+    "start": "node scripts/static-server.mjs",
+    "dev": "node scripts/static-server.mjs",
+    "start:py": "python3 -m http.server 8765 --bind 127.0.0.1",
+    "start:5500": "PORT=5500 node scripts/static-server.mjs",
+    "dev:vol2": "sh -c 'node scripts/static-server.mjs & SRV=$!; trap \"kill $SRV 2>/dev/null\" INT TERM EXIT; sleep 1; open \"http://127.0.0.1:8765/kit-flames-bounce-vol2.html\"; echo \"Open: http://127.0.0.1:8765/kit-flames-bounce-vol2.html — Ctrl+C stops server.\"; wait $SRV'",
+    "open": "open http://127.0.0.1:8765/",
+    "open:vol2-preview": "open 'http://127.0.0.1:8765/kit-flames-bounce-vol2.html'",
+    "test:e2e": "playwright test",
+    "test:e2e:10": "playwright test --repeat-each=10"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0"
+  }
+}
