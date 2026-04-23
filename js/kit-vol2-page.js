@@ -117,6 +117,13 @@
   /* ── Hero drop countdown (CET target from data-drop-iso) ─ */
   const cdRoot = document.getElementById('kitVol2Countdown');
   if (cdRoot) {
+    /**
+     * Production / Vercel review: skip lock + countdown so you can QA the full page.
+     * Set to false and redeploy before the real drop.
+     * While true, add ?vol2Lock=1 to the URL to see the normal countdown + lock overlay.
+     */
+    const VOL2_PROD_PREVIEW_SKIP_COUNTDOWN = true;
+
     const iso = cdRoot.getAttribute('data-drop-iso') || '2026-05-01T12:00:00+02:00';
     const params = new URLSearchParams(window.location.search || '');
     const host = (window.location.hostname || '').toLowerCase();
@@ -125,8 +132,13 @@
       host === '127.0.0.1' ||
       host === '[::1]' ||
       host === '::1';
+    const isFlamesbounceProd =
+      host === 'www.flamesbounce.com' || host === 'flamesbounce.com';
+    const isVercelHost = host.endsWith('.vercel.app');
     const forceCountdownOnLocal =
       params.get('vol2Countdown') === '1' || params.get('countdown') === '1';
+    const forceProdLock =
+      params.get('vol2Lock') === '1' || params.get('vollock') === '1';
     const previewRaw =
       params.get('vol2Last') ||
       params.get('vol2last') ||
@@ -139,11 +151,17 @@
     }
     const skipCountdownOnLocal =
       isLocalHost && !forceCountdownOnLocal && !Number.isFinite(previewSec);
+    const skipCountdownOnProdPreview =
+      VOL2_PROD_PREVIEW_SKIP_COUNTDOWN &&
+      (isFlamesbounceProd || isVercelHost) &&
+      !forceProdLock &&
+      !Number.isFinite(previewSec);
     const forceEnd =
       params.get('vol2End') === '1' ||
       params.get('vol2end') === '1' ||
       params.get('drop') === 'now' ||
-      skipCountdownOnLocal;
+      skipCountdownOnLocal ||
+      skipCountdownOnProdPreview;
 
     let dropAt;
     if (forceEnd) {
