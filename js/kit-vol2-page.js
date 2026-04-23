@@ -118,11 +118,10 @@
   const cdRoot = document.getElementById('kitVol2Countdown');
   if (cdRoot) {
     /**
-     * Production / Vercel review: skip lock + countdown so you can QA the full page.
-     * Set to false and redeploy before the real drop.
-     * While true, add ?vol2Lock=1 to the URL to see the normal countdown + lock overlay.
+     * Set true only for short QA deploys: production / *.vercel.app skip lock + countdown.
+     * With false (normal): use ?vol2Lock=1 on those hosts to preview the lock UI.
      */
-    const VOL2_PROD_PREVIEW_SKIP_COUNTDOWN = true;
+    const VOL2_PROD_PREVIEW_SKIP_COUNTDOWN = false;
 
     const iso = cdRoot.getAttribute('data-drop-iso') || '2026-05-01T12:00:00+02:00';
     const params = new URLSearchParams(window.location.search || '');
@@ -517,7 +516,10 @@
       });
     }
 
-    function setLive() {
+    /** Cutscene only when countdown hit zero on this page load — not on every reload after drop. */
+    let sawCountdownRunningThisPageLoad = false;
+
+    function setLive(shouldPlayCutscene) {
       cdRoot.classList.add('is-live');
       if (row) row.setAttribute('aria-hidden', 'true');
       if (eyebrow) eyebrow.hidden = true;
@@ -528,14 +530,21 @@
       if (lockRoot) lockRoot.hidden = true;
       setBuyLocked(false);
       if (reduced) return;
-      requestAnimationFrame(() => playUnlockCutscene());
+      if (shouldPlayCutscene) {
+        requestAnimationFrame(() => playUnlockCutscene());
+      }
     }
 
     function tick() {
       if (Number.isNaN(dropAt.getTime())) return false;
       const ms = dropAt.getTime() - Date.now();
+      if (ms > 0) {
+        sawCountdownRunningThisPageLoad = true;
+      }
       if (ms <= 0) {
-        setLive();
+        const playCutscene =
+          sawCountdownRunningThisPageLoad || (isLocalHost && skipCountdownOnLocal);
+        setLive(playCutscene);
         return false;
       }
       const sec = Math.floor(ms / 1000);
