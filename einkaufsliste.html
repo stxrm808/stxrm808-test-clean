@@ -1,0 +1,451 @@
+<title>Papas Einkaufsliste</title>
+<script>
+const FONTS = "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap";
+
+const CSS = `
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  color-scheme:light;
+  --ground:#F1F4F0;
+  --surface:#FFFFFF;
+  --surface-2:#E7ECE5;
+  --done:#E9EDE7;
+  --ink:#15201C;
+  --muted:#5F706A;
+  --line:#D6DED5;
+  --accent:#0F6E58;
+  --accent-soft:#DCEDE4;
+  --on-accent:#FFFFFF;
+  --warn:#9E4C18;
+  --warn-soft:#F7E9DA;
+  --shadow:0 1px 2px rgba(21,32,28,.05),0 10px 30px -22px rgba(21,32,28,.55);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0E1412;
+    --surface:#171F1B;
+    --surface-2:#202A25;
+    --done:#121917;
+    --ink:#E6EDE8;
+    --muted:#91A49B;
+    --line:#2A352F;
+    --accent:#4AC49B;
+    --accent-soft:#15342A;
+    --on-accent:#08201A;
+    --warn:#E0A06A;
+    --warn-soft:#2E2118;
+    --shadow:0 1px 2px rgba(0,0,0,.45),0 10px 30px -22px rgba(0,0,0,.95);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0E1412;
+  --surface:#171F1B;
+  --surface-2:#202A25;
+  --done:#121917;
+  --ink:#E6EDE8;
+  --muted:#91A49B;
+  --line:#2A352F;
+  --accent:#4AC49B;
+  --accent-soft:#15342A;
+  --on-accent:#08201A;
+  --warn:#E0A06A;
+  --warn-soft:#2E2118;
+  --shadow:0 1px 2px rgba(0,0,0,.45),0 10px 30px -22px rgba(0,0,0,.95);
+}
+body{
+  margin:0;
+  padding:0 16px 72px;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+.wrap{max-width:34rem;margin:0 auto}
+.top{
+  position:sticky;top:0;z-index:5;
+  background:var(--ground);
+  padding:26px 0 12px;
+  box-shadow:0 12px 12px -12px var(--ground),0 1px 0 0 transparent;
+}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--muted);margin:0;
+}
+h1{
+  font-family:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif;
+  font-weight:700;font-size:clamp(30px,8vw,40px);line-height:1.02;
+  letter-spacing:-.025em;margin:8px 0 3px;text-wrap:balance;
+}
+.sub{margin:0 0 16px;color:var(--muted);font-size:13px}
+.meter{display:flex;align-items:center;gap:12px}
+.bar{flex:1;height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.bar span{display:block;height:100%;width:0%;border-radius:99px;background:var(--accent);transition:width .35s cubic-bezier(.4,0,.2,1)}
+.count{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+  color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.top.pinned{padding:10px 0 10px;border-bottom:1px solid var(--line)}
+.top.pinned .eyebrow,.top.pinned .sub{display:none}
+.top.pinned h1{font-size:19px;letter-spacing:-.01em;margin:0 0 9px}
+#sentinel{height:1px;margin:0}
+.sec{margin:26px 0 10px}
+ul.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+ul.list:empty{display:none}
+li.item{
+  display:flex;align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  box-shadow:var(--shadow);overflow:hidden;
+  transition:background .2s ease,border-color .2s ease;
+}
+li.item.done{background:var(--done);border-color:var(--line);box-shadow:none}
+label.row{
+  flex:1;min-width:0;display:flex;align-items:center;gap:14px;
+  padding:14px 4px 14px 16px;min-height:60px;cursor:pointer;
+}
+label.row input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.box{
+  flex:none;width:24px;height:24px;border-radius:8px;
+  border:2px solid var(--line);background:var(--surface);
+  display:grid;place-items:center;
+  transition:background .18s ease,border-color .18s ease;
+}
+.box svg{
+  width:14px;height:14px;fill:none;stroke:var(--on-accent);stroke-width:3.2;
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:24;stroke-dashoffset:24;
+  transition:stroke-dashoffset .3s ease .04s;
+}
+label.row input:checked + .box{background:var(--accent);border-color:var(--accent)}
+label.row input:checked + .box svg{stroke-dashoffset:0}
+label.row input:focus-visible + .box{outline:2px solid var(--accent);outline-offset:3px}
+.txt{min-width:0;display:flex;flex-direction:column;gap:2px}
+.name{font-weight:500;transition:color .2s ease}
+li.item.done .name{
+  color:var(--muted);
+  text-decoration:line-through;
+  text-decoration-thickness:1.5px;
+  text-decoration-color:var(--accent);
+}
+.qty{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;
+  color:var(--muted);font-variant-numeric:tabular-nums;
+}
+.note{font-size:12.5px;color:var(--muted)}
+.num{
+  flex:none;align-self:center;padding:0 14px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--muted);font-variant-numeric:tabular-nums;
+}
+.rm{
+  flex:none;border:none;background:none;color:var(--muted);
+  font-size:20px;line-height:1;padding:0 14px;align-self:stretch;cursor:pointer;
+}
+.rm:hover{color:var(--warn)}
+.rm:focus-visible{outline:2px solid var(--accent);outline-offset:-4px;border-radius:8px}
+li.pin{background:var(--warn-soft);border:1px solid var(--warn);border-style:dashed}
+li.pin.done{background:var(--done);border-color:var(--line);border-style:solid}
+li.pin .box{border-color:var(--warn)}
+li.pin label.row input:checked + .box{background:var(--warn);border-color:var(--warn)}
+li.pin .name{font-weight:600}
+li.pin.done .name{text-decoration-color:var(--warn)}
+form.add{display:flex;gap:8px;margin-top:12px}
+input.text{
+  flex:1;min-width:0;font:inherit;padding:13px 14px;
+  border-radius:12px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink);
+}
+input.text::placeholder{color:var(--muted)}
+input.text:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.btn{
+  font-family:"IBM Plex Sans",system-ui,sans-serif;font-weight:600;font-size:14px;
+  padding:13px 16px;border-radius:12px;border:1px solid var(--accent);
+  background:var(--accent);color:var(--on-accent);cursor:pointer;
+}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--muted)}
+.btn.ghost:hover{color:var(--ink);border-color:var(--muted)}
+.foot{
+  margin-top:28px;padding-top:16px;border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:14px;color:var(--muted);font-size:12.5px;
+}
+.foot p{margin:0}
+.footrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.saved{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+}
+.saved.flash{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+`;
+
+const SHELL = `
+<div class="wrap">
+  <div id="sentinel" aria-hidden="true"></div>
+  <header class="top" id="top">
+    <p class="eyebrow">Nachricht von Papa &middot; 19:41 Uhr</p>
+    <h1>Einkaufsliste</h1>
+    <p class="sub">Carrefour, Platja d&rsquo;Aro &mdash; ge&ouml;ffnet bis 24 Uhr</p>
+    <div class="meter">
+      <div class="bar"><span id="fill"></span></div>
+      <p class="count" id="count">0 von 0</p>
+    </div>
+  </header>
+  <main>
+    <ul class="list" id="pin"></ul>
+    <p class="eyebrow sec">Papas Liste</p>
+    <ul class="list" id="list"></ul>
+    <p class="eyebrow sec">Selbst dazu</p>
+    <ul class="list" id="extras"></ul>
+    <form class="add" id="add">
+      <input class="text" id="newItem" placeholder="Noch was mitnehmen?" autocomplete="off" aria-label="Eigenen Artikel hinzuf&uuml;gen">
+      <button class="btn" type="submit">Hinzuf&uuml;gen</button>
+    </form>
+    <div class="foot">
+      <p>Papa hat die Nummern 12 und 13 nie geschickt &mdash; deshalb springt die Liste von 11 auf 14.</p>
+      <div class="footrow">
+        <span class="saved" id="saved">gespeichert</span>
+        <button class="btn ghost" id="reset" type="button">Alles zur&uuml;cksetzen</button>
+      </div>
+    </div>
+  </main>
+</div>
+`;
+
+const ITEMS = [
+  {"id":"i1","n":"1","text":"Brot"},
+  {"id":"i2","n":"2","text":"Croissants","qty":"4 Stück"},
+  {"id":"i3","n":"3","text":"Aqua sin gaz","qty":"3 × 5 L  ·  6 × 1,5 L"},
+  {"id":"i4","n":"4","text":"Aliolli"},
+  {"id":"i5","n":"5","text":"Scheibenkäse","qty":"1 Packung"},
+  {"id":"i6","n":"6","text":"Tomaten"},
+  {"id":"i7","n":"7","text":"Gurke","qty":"1 Stück"},
+  {"id":"i8","n":"8","text":"Aufschnitt","note":"was Dir schmeckt!"},
+  {"id":"i9","n":"9","text":"Wassermelone"},
+  {"id":"i10","n":"10","text":"Pfirsiche","qty":"4 Stück"},
+  {"id":"i11","n":"11","text":"Was Dir sonst noch so einfällt","note":"freie Wahl — unten eintragen"},
+  {"id":"i14","n":"14","text":"Joghurt, kleine Becher","note":"mit Geschmack: Erdbeere 🍓, Pfirsich 🍑, …"},
+  {"id":"i15","n":"15","text":"Joghurt „Activia“","note":"wenn es das hier gibt??"}
+];
+
+const PIN = {"id":"quittung","text":"Quittung aufheben!","note":"Papa braucht sie — nicht wegwerfen."};
+
+let STATE = {"v":1,"updatedAt":0,"checked":{},"extras":[]};
+
+function buildDoc(state){
+  var J = JSON.stringify;
+  return '<!doctype html>\n<html lang="de">\n<head>\n'
+    + '<meta charset="utf-8">\n'
+    + '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+    + '<title>Papas Einkaufsliste</title>\n'
+    + '</head>\n<body>\n<script>\n'
+    + 'const FONTS = ' + J(FONTS) + ';\n'
+    + 'const CSS = ' + J(CSS) + ';\n'
+    + 'const SHELL = ' + J(SHELL) + ';\n'
+    + 'const ITEMS = ' + J(ITEMS) + ';\n'
+    + 'const PIN = ' + J(PIN) + ';\n'
+    + 'let STATE = ' + J(state) + ';\n'
+    + buildDoc.toString() + '\n'
+    + app.toString() + '\n'
+    + 'app();\n'
+    + '<\/script>\n</body>\n</html>\n';
+}
+
+function app(){
+  var KEY = "papa-einkaufsliste-v1";
+  var SCROLL_KEY = "papa-einkaufsliste-scroll";
+  var TICK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.6 9.6 18.2 20 6.4"/></svg>';
+
+  document.head.insertAdjacentHTML("beforeend",
+    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+    + '<link rel="stylesheet" href="' + FONTS + '">'
+    + '<style>' + CSS + '</style>');
+  document.body.insertAdjacentHTML("afterbegin", SHELL);
+
+  var elPin = document.getElementById("pin");
+  var elList = document.getElementById("list");
+  var elExtras = document.getElementById("extras");
+  var elFill = document.getElementById("fill");
+  var elCount = document.getElementById("count");
+  var elSaved = document.getElementById("saved");
+  var elForm = document.getElementById("add");
+  var elNew = document.getElementById("newItem");
+  var elReset = document.getElementById("reset");
+  var elTop = document.getElementById("top");
+  var elSentinel = document.getElementById("sentinel");
+
+  if (window.IntersectionObserver && elSentinel) {
+    new IntersectionObserver(function(entries){
+      elTop.classList.toggle("pinned", !entries[0].isIntersecting);
+    }).observe(elSentinel);
+  }
+
+  var artifact = null;
+  var syncTimer = null;
+  var savedTimer = null;
+
+  if (window.claude && typeof window.claude.use === "function") {
+    Promise.resolve(window.claude.use("artifact")).then(function(ns){
+      artifact = ns;
+    }, function(){ artifact = null; });
+  }
+
+  function esc(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  function normalise(s){
+    if (!s || typeof s !== "object") return null;
+    return {
+      v: 1,
+      updatedAt: Number(s.updatedAt) || 0,
+      checked: (s.checked && typeof s.checked === "object") ? s.checked : {},
+      extras: Array.isArray(s.extras) ? s.extras.filter(function(e){
+        return e && typeof e.text === "string";
+      }) : []
+    };
+  }
+
+  function loadState(){
+    var embedded = normalise(STATE) || {v:1,updatedAt:0,checked:{},extras:[]};
+    var stored = null;
+    try { stored = normalise(JSON.parse(localStorage.getItem(KEY) || "null")); } catch (e) { stored = null; }
+    if (stored && stored.updatedAt > embedded.updatedAt) return stored;
+    return embedded;
+  }
+
+  STATE = loadState();
+
+  function time(){
+    var d = new Date();
+    return ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+  }
+
+  function save(){
+    STATE.updatedAt = Date.now();
+    try { localStorage.setItem(KEY, JSON.stringify(STATE)); } catch (e) {}
+    elSaved.textContent = "gespeichert · " + time();
+    elSaved.classList.add("flash");
+    if (savedTimer) clearTimeout(savedTimer);
+    savedTimer = setTimeout(function(){ elSaved.classList.remove("flash"); }, 1200);
+    scheduleSync();
+  }
+
+  function publishNow(){
+    if (syncTimer) { clearTimeout(syncTimer); syncTimer = null; }
+    if (!artifact || typeof artifact.publish !== "function") return;
+    try { sessionStorage.setItem(SCROLL_KEY, String(window.scrollY || 0)); } catch (e) {}
+    try {
+      Promise.resolve(artifact.publish(buildDoc(STATE))).then(null, function(){});
+    } catch (e) {}
+  }
+
+  function scheduleSync(){
+    if (syncTimer) clearTimeout(syncTimer);
+    syncTimer = setTimeout(function(){ syncTimer = null; publishNow(); }, 6000);
+  }
+
+  function itemHtml(it, done, removable){
+    return '<li class="item' + (done ? " done" : "") + (it.id === PIN.id ? " pin" : "") + '" data-id="' + esc(it.id) + '">'
+      + '<label class="row">'
+      + '<input type="checkbox" data-id="' + esc(it.id) + '"' + (done ? " checked" : "") + '>'
+      + '<span class="box">' + TICK + '</span>'
+      + '<span class="txt">'
+      + '<span class="name">' + esc(it.text) + '</span>'
+      + (it.qty ? '<span class="qty">' + esc(it.qty) + '</span>' : "")
+      + (it.note ? '<span class="note">' + esc(it.note) + '</span>' : "")
+      + '</span></label>'
+      + (it.n ? '<span class="num">' + esc(it.n) + '</span>' : "")
+      + (removable ? '<button class="rm" type="button" data-rm="' + esc(it.id) + '" aria-label="' + esc(it.text) + ' entfernen">&times;</button>' : "")
+      + '</li>';
+  }
+
+  function meter(){
+    var all = [PIN].concat(ITEMS).concat(STATE.extras);
+    var done = all.filter(function(it){ return !!STATE.checked[it.id]; }).length;
+    elCount.textContent = done + " von " + all.length;
+    elFill.style.width = (all.length ? (done / all.length) * 100 : 0) + "%";
+  }
+
+  function render(){
+    elPin.innerHTML = itemHtml(PIN, !!STATE.checked[PIN.id], false);
+    elList.innerHTML = ITEMS.map(function(it){
+      return itemHtml(it, !!STATE.checked[it.id], false);
+    }).join("");
+    elExtras.innerHTML = STATE.extras.map(function(it){
+      return itemHtml(it, !!STATE.checked[it.id], true);
+    }).join("");
+    meter();
+  }
+
+  function onChange(e){
+    var input = e.target.closest ? e.target.closest("input[type=checkbox]") : null;
+    if (!input) return;
+    var id = input.getAttribute("data-id");
+    if (input.checked) STATE.checked[id] = true;
+    else delete STATE.checked[id];
+    var li = input.closest("li");
+    if (li) li.classList.toggle("done", input.checked);
+    meter();
+    save();
+  }
+
+  function onClick(e){
+    var btn = e.target.closest ? e.target.closest("button[data-rm]") : null;
+    if (!btn) return;
+    var id = btn.getAttribute("data-rm");
+    STATE.extras = STATE.extras.filter(function(it){ return it.id !== id; });
+    delete STATE.checked[id];
+    render();
+    save();
+  }
+
+  [elPin, elList, elExtras].forEach(function(el){
+    el.addEventListener("change", onChange);
+    el.addEventListener("click", onClick);
+  });
+
+  elForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    var text = elNew.value.trim();
+    if (!text) return;
+    STATE.extras.push({ id: "x" + Date.now().toString(36), text: text });
+    elNew.value = "";
+    render();
+    save();
+  });
+
+  elReset.addEventListener("click", function(){
+    if (!window.confirm("Alle Haken entfernen und eigene Einträge löschen?")) return;
+    STATE.checked = {};
+    STATE.extras = [];
+    render();
+    save();
+  });
+
+  document.addEventListener("visibilitychange", function(){
+    if (document.visibilityState === "hidden" && syncTimer) publishNow();
+  });
+
+  render();
+  elSaved.textContent = STATE.updatedAt ? "gespeichert · " + new Date(STATE.updatedAt).toTimeString().slice(0,5) : "noch nichts abgehakt";
+
+  try {
+    var y = sessionStorage.getItem(SCROLL_KEY);
+    if (y !== null) {
+      sessionStorage.removeItem(SCROLL_KEY);
+      window.scrollTo(0, Number(y) || 0);
+    }
+  } catch (e) {}
+}
+
+app();
+</script>
