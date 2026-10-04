@@ -5,3 +5,6 @@ playwright-report/
 blob-report/
 .vercel
 .env*.local
+
+# AURA ad: source assets from Dropbox (large / private, never commit)
+ADV/AURA Ad/assets_in/dropbox/
